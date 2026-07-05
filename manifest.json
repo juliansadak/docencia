@@ -1,0 +1,25 @@
+{
+  "name": "Portal de Soluciones e Indicadores CECYTE",
+  "short_name": "CECYTE App",
+  "description": "Plataforma de portafolio y herramientas de simulación e indicadores analíticos del plantel.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8f9fa",
+  "theme_color": "#651C32",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

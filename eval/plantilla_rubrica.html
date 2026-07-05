@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creador de Rúbricas de Evaluación | CECYTE</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        guinda: '#651C32',
+                        'guinda-light': '#80243e',
+                        ocre: '#B9975B',
+                        cecyte: {
+                            guinda: '#651C32',
+                            guindaLight: '#80243e',
+                            oro: '#B9975B',
+                            oroLight: '#ceb484',
+                            grisBg: '#f4f6f8',
+                            lila: 'rgba(101, 28, 50, 0.08)',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <meta name="theme-color" content="#651C32">
+    <style>
+        body { font-family: 'Open Sans', sans-serif; }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .rubric-table { border-collapse: separate; border-spacing: 0; }
+        .rubric-table th, .rubric-table td { border: 1px solid #e2e8f0; }
+        .rubric-table thead th { background-color: #f8fafc; }
+        .rubric-table tbody td:first-child { background-color: #f8fafc; }
+        .score-cell { transition: all 0.2s ease-in-out; }
+    </style>
+</head>
+
+<body class="bg-cecyte-grisBg text-slate-800 min-h-screen flex flex-col pt-16">
+
+    <!-- MENÚ DE NAVEGACIÓN MODERNO (STICKY) -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-6 max-w-screen-2xl">
+            <div class="flex justify-between h-16">
+                <!-- Logo e Identidad -->
+                <div class="flex items-center gap-3">
+                    <div>
+                        <span class="font-montserrat font-extrabold text-sm sm:text-base tracking-wider text-cecyte-guinda block leading-none">PORTAL EDUCATIVO</span>
+                    </div>
+                </div>
+
+                <!-- Enlaces de Escritorio -->
+                <div class="hidden lg:flex items-center space-x-1 font-semibold text-xs uppercase tracking-wider">
+                    <a href="/index.html" class="text-slate-600 hover:text-cecyte-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
+                        <i class="fa-solid fa-house"></i> Principal
+                    </a>
+                    <a href="/index.html#Práctica Docente y Evaluación" class="text-slate-600 hover:text-cecyte-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
+                        <i class="fa-solid fa-chalkboard-user"></i> Evaluación y Práctica
+                    </a>
+                    <a href="/index.html#prospectiva" class="text-slate-600 hover:text-cecyte-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
+                        <i class="fa-solid fa-compass-drafting"></i> Prospectiva y Currículo
+                    </a>
+                    <a href="/index.html#Indicadores y Gestión Estratégica" class="text-slate-600 hover:text-cecyte-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie"></i> Estrategia e Indicadores
+                    </a>
+                    <span class="h-6 w-px bg-slate-200 mx-2"></span>
+                    <button id="btn-header-install" class="bg-cecyte-guinda hover:bg-cecyte-guindaLight text-white px-4 py-2 rounded-full transition-all text-[11px] font-bold shadow-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-mobile-screen-button"></i> Instalar App
+                    </button>
+                </div>
+
+                <!-- Botón de Menú Móvil (Hamburguesa) -->
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-cecyte-guinda focus:outline-none p-2 rounded-lg transition-colors">
+                        <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú Desplegable Móvil -->
+        <div id="mobile-dropdown" class="hidden lg:hidden bg-white border-t border-slate-200 shadow-inner px-6 py-4 space-y-3">
+            <a href="/index.html" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
+                <i class="fa-solid fa-house text-cecyte-guinda"></i> Principal
+            </a>
+            <a href="/index.html#Práctica Docente y Evaluación" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
+                <i class="fa-solid fa-chalkboard-user text-cecyte-guinda"></i> Evaluación y Práctica
+            </a>
+           <a href="/index.html#prospectiva" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
+                <i class="fa-solid fa-compass-drafting text-cecyte-guinda"></i> Prospectiva Curricular
+            </a>
+            <a href="/index.html#Indicadores y Gestión Estratégica" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
+                <i class="fa-solid fa-chart-pie text-cecyte-guinda"></i> Gestión Estratégica
+            </a>
+            <div class="border-t border-slate-100 pt-3">
+                <button id="btn-mobile-install" class="w-full bg-cecyte-guinda hover:bg-cecyte-guindaLight text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-mobile-screen-button"></i> Instalar Plataforma PWA
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="creator-section" class="max-w-7xl w-full mx-auto my-4 p-4 bg-white border-2 border-slate-200 rounded-2xl shadow-lg">
+        <header class="border-b-2 border-slate-100 pb-4 mb-6 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+            <div>
+                <h2 class="text-xl font-bold text-cecyte-guinda uppercase flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-cecyte-oro"></i> Creador de Rúbricas con Gestor de Plantillas
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Carga ejemplos académicos o guarda tus propias rúbricas creadas para reutilizarlas.</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+                <button type="button" onclick="switchMode('evaluate')" class="bg-cecyte-guinda hover:bg-cecyte-guindaLight text-white font-semibold px-4 py-2 rounded-lg text-sm transition-colors flex items-center gap-2">
+                    <i class="fa-solid fa-clipboard-check"></i> Evaluar
+                </button>
+            </div>
+        </header>
+
+        <div class="bg-cecyte-lila p-4 rounded-xl border border-dashed border-cecyte-guinda/30 mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-xs font-bold text-cecyte-guinda uppercase mb-1.5"><i class="fa-solid fa-bolt text-cecyte-oro mr-1"></i> 1. Plantillas Predeterminadas o Propias:</label>
+                <select id="select-template" onchange="loadSelectedTemplate()" class="w-full bg-white border-2 border-slate-200 rounded-lg p-2 text-sm focus:border-guinda focus:outline-none font-semibold text-slate-700 cursor-pointer">
+                    <option value="">-- Seleccionar una plantilla --</option>
+                    <optgroup label="Modelos Académicos de Fábrica">
+                        <option value="exposicion">Exposición Oral / Disertación Académica</option>
+                        <option value="infografia">Diseño de Infografía o Cartel Didáctico</option>
+                        <option value="proyecto">Reporte de Proyecto / Práctica de Laboratorio</option>
+                    </optgroup>
+                    <optgroup label="Mis Plantillas Guardadas" id="user-templates-group">
+                        </optgroup>
+                </select>
+            </div>
+            <div class="flex items-end gap-2">
+                <button type="button" onclick="saveAsUserTemplate()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition shadow-sm uppercase tracking-wider flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-floppy-disk"></i> Guardar mi Plantilla
+                </button>
+                <button type="button" onclick="deleteUserTemplate()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition shadow-sm uppercase tracking-wider flex items-center justify-center" title="Eliminar plantilla seleccionada">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div>
+                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Plantel / Institución:</label>
+                <input type="text" id="input-institution" value="CECyTE Puebla - Huejotzingo" class="w-full border-2 border-slate-200 rounded-lg p-2.5 text-sm focus:border-guinda focus:outline-none transition-colors">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Título del Instrumento:</label>
+                <input type="text" id="input-title" placeholder="Ej. Evaluación inicial" class="w-full border-2 border-slate-200 rounded-lg p-2.5 text-sm focus:border-guinda focus:outline-none transition-colors">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Producto / Actividad:</label>
+                <input type="text" id="input-subtitle" placeholder="Ej. Cuadro Sinóptico" class="w-full border-2 border-slate-200 rounded-lg p-2.5 text-sm focus:border-guinda focus:outline-none transition-colors">
+            </div>
+        </div>
+
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-6 flex flex-wrap gap-6 items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Cantidad de Niveles:</label>
+                    <div class="flex items-center gap-1">
+                        <button onclick="changeDimensions('levels', -1)" class="w-8 h-8 bg-white border border-slate-300 rounded-lg font-bold hover:bg-slate-100">-</button>
+                        <span id="display-levels" class="w-10 text-center font-bold text-lg text-cecyte-guinda">4</span>
+                        <button onclick="changeDimensions('levels', 1)" class="w-8 h-8 bg-white border border-slate-300 rounded-lg font-bold hover:bg-slate-100">+</button>
+                    </div>
+                </div>
+                <div class="border-l border-slate-300 h-10 mx-2"></div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Cantidad de Categorías:</label>
+                    <div class="flex items-center gap-1">
+                        <button onclick="changeDimensions('criteria', -1)" class="w-8 h-8 bg-white border border-slate-300 rounded-lg font-bold hover:bg-slate-100">-</button>
+                        <span id="display-criteria" class="w-10 text-center font-bold text-lg text-cecyte-guinda">5</span>
+                        <button onclick="changeDimensions('criteria', 1)" class="w-8 h-8 bg-white border border-slate-300 rounded-lg font-bold hover:bg-slate-100">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto border border-slate-200 rounded-xl bg-white shadow-inner p-2 mb-6">
+            <table class="w-full block md:table border-collapse text-left text-sm" id="matrix-form-table"></table>
+        </div>
+
+        <div class="text-right">
+            <button onclick="switchMode('evaluate')" class="bg-cecyte-oroLight hover:bg-cecyte-oro text-white font-bold py-3.5 px-8 rounded-xl uppercase tracking-wider transition-all shadow-md text-sm w-full md:w-auto">
+                <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Generar Rúbrica Interactiva
+            </button>
+        </div>
+    </main>
+
+    <main id="evaluation-section" class="pt-0 hidden max-w-7xl w-full box-border mx-auto my-2 bg-white border-2 border-slate-200 rounded-xl shadow-lg overflow-visible relative pb-4">
+        <header class="bg-cecyte-guinda text-white p-2.5 md:p-3 border-b-4 border-ocre relative break-inside-avoid page-break-inside-avoid">
+            <div id="view-institution" class="text-xs md:text-sm font-semibold uppercase tracking-widest text-cecyte-oroLight mb-1">CECyTE Puebla - Huejotzingo</div>
+            
+            <button type="button" onclick="switchMode('edit')" class="absolute top-2.5 right-2.5 md:top-3 md:right-3 bg-cecyte-guinda hover:bg-cecyte-guindaLight text-white font-semibold px-4 py-2 rounded-lg text-sm transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-sliders"></i> Modificar
+            </button>
+            
+            <h1 id="view-title" class="text-xl md:text-xl font-extrabold uppercase tracking-tight leading-tight">Rúbrica de Evaluación</h1>
+            <p id="view-subtitle" class="text-sm md:text-base mt-0.5 text-amber-100 font-medium"></p>
+        </header>
+
+        <div class="p-1.5 bg-slate-50 border-b border-slate-200">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-1.5 bg-white p-1.5 rounded-lg border border-slate-200 shadow-sm mb-1.5">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1"><i class="fa-solid fa-user text-cecyte-oro mr-1"></i> Nombre del Evaluado:</label>
+                    <input type="text" id="student-name" placeholder="Apellido(s)  Nombre(s)" class="w-full border-b-2 border-slate-200 focus:border-guinda focus:outline-none p-1.5 text-sm bg-transparent transition-colors">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1"><i class="fa-solid fa-graduation-cap text-cecyte-oro mr-1"></i> Carrera / Especialidad:</label>
+                    <input type="text" id="student-career" placeholder="Ej. ELEC, FAEN, LOG, CIA" class="w-full border-b-2 border-slate-200 focus:border-guinda focus:outline-none p-1.5 text-sm bg-transparent transition-colors">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1"><i class="fa-solid fa-users text-cecyte-oro mr-1"></i> Grupo / Semestre:</label>
+                    <input type="text" id="student-group" placeholder="Ej. 2A" class="w-full border-b-2 border-slate-200 focus:border-guinda focus:outline-none p-1.5 text-sm bg-transparent transition-colors">
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-1.5 bg-white p-1.5 rounded-lg border border-slate-200 shadow-sm">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1"><i class="fa-solid fa-user-tie text-cecyte-oro mr-1"></i> Nombre del Evaluador:</label>
+                    <input type="text" id="evaluator-name" placeholder="Nombre(s) Apellido(s)" class="w-full border-b-2 border-slate-200 focus:border-cecyte-guinda focus:outline-none p-1.5 text-sm bg-transparent transition-colors">
+                </div>
+            </div>
+        </div>
+
+        <div class="sticky top-16 z-40 bg-white border-b border-slate-200 p-1.5 shadow-sm flex flex-col md:flex-row justify-between items-center gap-1.5">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-clipboard-check text-xl text-cecyte-guinda"></i>
+                <div>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Puntaje Total Obtenido</h3>
+                    <p class="text-xs text-slate-500">Haz clic en las celdas deseadas para ponderar el puntaje.</p>
+                </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
+                <div class="bg-slate-900 text-emerald-400 font-mono px-4 py-1.5 rounded-lg text-center shadow-inner flex-1 md:flex-none">
+                    <span id="score-display" class="text-xl font-bold">0 / 0</span>
+                    <span class="text-[10px] ml-1">Pts</span>
+                </div>
+                <button onclick="copiarAlPortapapeles()" class="no-print bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 text-sm shadow-sm whitespace-nowrap flex items-center gap-1.5">
+                    <i class="fa-solid fa-copy"></i> Copiar Resumen
+                </button>
+                <button onclick="exportToPDF()" class="no-print bg-cecyte-oro hover:bg-amber-600 text-white font-bold py-2 px-3 rounded-lg transition duration-200 text-sm shadow-sm whitespace-nowrap">
+                    <i class="fa-solid fa-file-pdf mr-1.5"></i>Guardar PDF
+                </button>
+                <button onclick="exportToHTML()" class="no-print bg-slate-700 hover:bg-slate-800 text-white font-bold py-2 px-3 rounded-lg transition duration-200 text-sm shadow-sm whitespace-nowrap">
+                    <i class="fa-solid fa-file-code mr-1.5"></i>Descargar
+                </button>
+            </div>
+        </div>
+
+        <div class="p-2 overflow-x-auto">
+            <table class="rubric-table w-full block md:table text-left border-collapse bg-white" id="interactive-table"></table>
+        </div>
+
+        <div class="p-3 border-t border-slate-200 bg-white mt-1.5">
+            <h3 class="text-sm font-bold text-guinda uppercase tracking-widest mb-3"><i class="fa-solid fa-comment-dots text-ocre mr-1"></i> Dictamen y Observaciones</h3>
+            <div id="feedback-box" class="bg-slate-100 p-4 rounded-lg border-l-4 border-slate-300 text-sm text-slate-600 italic mb-3">
+                La retroalimentación se calculará de manera automática al evaluar todas las categorías.
+            </div>
+            
+            <div class="mt-4">
+                <label class="block text-xs font-bold text-slate-600 uppercase mb-1"><i class="fa-solid fa-pen-to-square text-cecyte-oro mr-1"></i> Comentarios Adicionales del Evaluador:</label>
+                <textarea id="teacher-comments" rows="3" placeholder="Escribe aquí observaciones personalizadas, áreas de oportunidad específicas o notas de seguimiento para el estudiante..." class="w-full border-2 border-slate-200 rounded-lg p-2.5 text-sm focus:border-guinda focus:outline-none transition-colors resize-y custom-scrollbar text-slate-700"></textarea>
+            </div>
+        </div>
+    </main>
+
+    <footer id="evaluation-section" class="max-w-7xl w-full mx-auto my-2 px-auto bg-cecyte-guinda rounded-2xl text-slate-400 border-slate-800 text-xs py-4 shadow-lg">
+        <div class="px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <p class="font-bold text-slate-200">CECYTE Puebla — Desarrollos de Software 2026</p>
+                <p class="text-cecyte-oroLight mt-0.5">Todos los derechos de cálculo y lógicas operativas reservados del autor.</p>
+            </div>
+            <div class="flex gap-4 text-cecyte-oroLight font-mono">
+                <span>Julian Sadak Vergara Cruz</span>
+                <span>|</span>
+                <span>Tailwind CSS</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let config = { levelsCount: 4, criteriaCount: 5 };
+        let evaluationState = { selectedScores: {}, maxPossibleScore: 0 };
+
+        // PLANTILLAS DE FÁBRICA
+        const academicTemplates = {
+            exposicion: {
+                title: "Evaluación de Exposición Oral", subtitle: "Presentación de Temas Académicos",
+                levels: ["Insuficiente", "Regular", "Bueno", "Excelente"], weights: [1, 2, 3, 4],
+                criteria: [
+                    { title: "Dominio del Tema", desc: ["Muestra lagunas graves y falta de preparación.", "Conoce el tema de forma muy superficial.", "Explica con claridad la mayoría del contenido.", "Demuestra dominio completo y responde dudas con precisión."] },
+                    { title: "Estructura y Orden", desc: ["Sin estructura ni secuencia clara.", "Falta continuidad lógica entre las diapositivas o ideas.", "Presentación organizada con inicio, desarrollo y cierre claro.", "Estructura perfecta con transiciones fluidas y profesionales."] },
+                    { title: "Material de Apoyo", desc: ["No usa apoyos o están saturados de texto ilegible.", "Material poco claro, legible o poco aprovechado.", "Apoyo visual claro, ordenado y pertinente.", "Diseño visual excepcional que complementa e ilustra las ideas de forma magistral."] },
+                    { title: "Expresión Oral", desc: ["Inaudible, lectura total del material sin ver al grupo.", "Volumen bajo y modulación monótona.", "Buena dicción, volumen adecuado y contacto visual parcial.", "Excelente elocuencia, lenguaje corporal idóneo y atrae la atención."] },
+                    { title: "Uso del Tiempo", desc: ["Excede o le falta más del 50% del tiempo asignado.", "Ajuste deficiente al tiempo establecido.", "Cumple casi en su totalidad con los tiempos pautados.", "Gestiona el tiempo de manera exacta y equilibrada."] }
+                ]
+            },
+            infografia: {
+                title: "Rúbrica para Infografía", subtitle: "Producto de Síntesis e Impacto Visual",
+                levels: ["Inicial", "En Proceso", "Competente", "Destacado"], weights: [1, 2, 3, 4],
+                criteria: [
+                    { title: "Contenido y Síntesis", desc: ["Datos erróneos o insuficientes para comprender el tema.", "Mucha información copiada directamente sin resumir.", "Información precisa, veraz y bien sintetizada.", "Capacidad de síntesis magistral utilizando únicamente ideas clave."] },
+                    { title: "Diseño y Visibilidad", desc: ["Estructura desorganizada y combinación confusa de colores.", "Poco atractiva, tipografía difícil de leer.", "Combinación armónica de imágenes, iconos y texto.", "Estética profesional, balance impecable y alto impacto visual."] },
+                    { title: "Organización Visual", desc: ["No existe un orden ni jerarquía de ideas.", "Jerarquía visual confusa o enredada.", "Estructura lógica fácil de seguir por el lector.", "Flujo visual impecable, creativo e intuitivo."] },
+                    { title: "Ortografía y Redacción", desc: ["Presenta más de 5 errores ortográficos o sintácticos.", "De 3 a 5 errores en el texto.", "1 o 2 errores menores que no afectan la lectura.", "Texto impecable, sin ningún tipo de error ortográfico."] },
+                    { title: "Fuentes", desc: ["No incluye las fuentes de información utilizadas.", "Fuentes incompletas o de dudosa procedencia.", "Incluye fuentes bibliográficas de forma clara.", "Fuentes fidedignas completas redactadas rigurosamente en formato APA."] }
+                ]
+            },
+            proyecto: {
+                title: "Reporte de Proyecto o Práctica", subtitle: "Evaluación de Evidencia de Aprendizaje Práctico",
+                levels: ["No Competente", "Suficiente", "Notable", "Excelente"], weights: [1, 2, 3, 4],
+                criteria: [
+                    { title: "Introducción y Sustento", desc: ["No describe los objetivos ni el marco del proyecto.", "Presenta objetivos confusos y sin base teórica.", "Objetivos claros con un fundamento teórico adecuado.", "Introducción sobresaliente que justifica plenamente la relevancia del trabajo."] },
+                    { title: "Metodología y Proceso", desc: ["Proceso omitido o desarrollado de manera errónea.", "Pasos incompletos o difíciles de replicar.", "Procedimiento detallado, lógico y correcto.", "Metodología rigurosa, limpia y documentada óptimamente."] },
+                    { title: "Análisis de Resultados", desc: ["No incluye resultados o carecen por completo de sentido.", "Presenta datos aislados sin interpretaciones.", "Resultados organizados con un análisis básico coherente.", "Análisis crítico profundo apoyado en gráficos o datos exactos."] },
+                    { title: "Conclusiones", desc: ["Omitidas o no guardan relación con el proyecto.", "Conclusiones redundantes o superficiales.", "Conclusión acertada que responde al objetivo planteado.", "Conclusiones sólidas con propuestas claras de mejora o aplicación práctica."] },
+                    { title: "Estructura y Formato", desc: ["Documento desorganizado, sin estructura formal.", "Cumple parcialmente con los apartados solicitados.", "Entregable limpio, ordenado y estructurado adecuadamente.", "Presentación formal impecable que excede los estándares solicitados."] }
+                ]
+            }
+        };
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileDropdown = document.getElementById('mobile-dropdown');
+        const menuIcon = document.getElementById('menu-icon');
+
+        function toggleMenu() {
+            if (!mobileMenuBtn || !mobileDropdown || !menuIcon) return;
+
+            const isHidden = mobileDropdown.classList.contains('hidden');
+            mobileDropdown.classList.toggle('hidden', !isHidden);
+            menuIcon.classList.toggle('fa-bars', !isHidden);
+            menuIcon.classList.toggle('fa-xmark', isHidden);
+            mobileMenuBtn.setAttribute('aria-expanded', String(isHidden));
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            generateMatrixForm();
+            refreshUserTemplatesSelect();
+
+            if (mobileMenuBtn && mobileDropdown && menuIcon) {
+                mobileMenuBtn.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    toggleMenu();
+                });
+
+                mobileDropdown.querySelectorAll('a, button').forEach((element) => {
+                    element.addEventListener('click', () => {
+                        if (window.innerWidth < 1024) {
+                            toggleMenu();
+                        }
+                    });
+                });
+
+                document.addEventListener('click', (event) => {
+                    if (window.innerWidth < 1024 && !mobileDropdown.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                        if (!mobileDropdown.classList.contains('hidden')) {
+                            toggleMenu();
+                        }
+                    }
+                });
+
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth >= 1024) {
+                        mobileDropdown.classList.add('hidden');
+                        menuIcon.classList.remove('fa-xmark');
+                        menuIcon.classList.add('fa-bars');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+        });
+
+        function changeDimensions(type, delta) {
+            if(type === 'levels') {
+                config.levelsCount = Math.max(2, Math.min(6, config.levelsCount + delta));
+                document.getElementById('display-levels').innerText = config.levelsCount;
+            } else {
+                config.criteriaCount = Math.max(1, Math.min(15, config.criteriaCount + delta));
+                document.getElementById('display-criteria').innerText = config.criteriaCount;
+            }
+            generateMatrixForm(true);
+        }
+
+        function generateMatrixForm(keepValues = false) {
+            const table = document.getElementById('matrix-form-table');
+            let cache = {};
+
+            if(keepValues) {
+                for(let j=1; j<=6; j++) {
+                    let title = document.getElementById(`level-title-${j}`);
+                    let weight = document.getElementById(`level-weight-${j}`);
+                    if(title) cache[`l-t-${j}`] = title.value;
+                    if(weight) cache[`l-w-${j}`] = weight.value;
+                }
+                for(let i=1; i<=15; i++) {
+                    let crit = document.getElementById(`criterion-title-${i}`);
+                    if(crit) cache[`c-t-${i}`] = crit.value;
+                    for(let j=1; j<=6; j++) {
+                        let desc = document.getElementById(`cell-desc-${i}-${j}`);
+                        if(desc) cache[`cell-${i}-${j}`] = desc.value;
+                    }
+                }
+            }
+
+            let html = `<thead class="block md:table-header-group"><tr class="flex flex-col md:table-row bg-slate-100 text-cecyte-guinda border-b-2 border-slate-200 p-2 md:p-0 gap-2 mb-4 md:mb-0">`;
+            html += `<th class="block md:table-cell p-3 font-bold text-xs uppercase tracking-wider w-full md:w-1/4 text-left">Categoría / Criterio</th>`;
+            
+            for(let j = 1; j <= config.levelsCount; j++) {
+                let valTitle = cache[`l-t-${j}`] || `Nivel ${j}`;
+                let valWeight = cache[`l-w-${j}`] || j;
+                html += `<th class="block md:table-cell p-3 font-bold text-xs uppercase tracking-wider text-center bg-white md:bg-transparent border md:border-0 rounded-lg shadow-sm md:shadow-none">
+                    <div class="space-y-1">
+                        <input type="text" id="level-title-${j}" value="${valTitle}" class="w-full text-center font-bold text-xs p-1 border rounded focus:border-guinda bg-white text-slate-700 uppercase">
+                        <div class="flex items-center justify-center gap-1 text-[10px] font-normal text-slate-500">
+                            <span>Peso:</span>
+                            <input type="number" id="level-weight-${j}" value="${valWeight}" class="w-12 text-center p-0.5 border rounded font-mono font-bold text-cecyte-guinda"> pts
+                        </div>
+                    </div>
+                </th>`;
+            }
+            html += `</tr></thead><tbody class="block md:table-row-group flex flex-col gap-5 md:gap-0 md:divide-y md:divide-slate-200">`;
+
+            for(let i = 1; i <= config.criteriaCount; i++) {
+                let valCrit = cache[`c-t-${i}`] || "";
+                html += `<tr class="flex flex-col md:table-row hover:bg-slate-50/50 bg-white md:bg-transparent border border-slate-200 md:border-0 rounded-xl p-3 md:p-0 shadow-sm md:shadow-none gap-2">`;
+                html += `<td class="block md:table-cell p-1 md:p-3 bg-slate-50 md:bg-transparent rounded-t-xl md:rounded-none border-b md:border-b-0">
+                    <input type="text" id="criterion-title-${i}" value="${valCrit}" placeholder="Nombre del criterio ${i}" class="w-full border rounded p-2 text-sm font-semibold focus:border-guinda text-slate-700">
+                </td>`;
+                
+                for(let j = 1; j <= config.levelsCount; j++) {
+                    let valCell = cache[`cell-${i}-${j}`] || "";
+                    html += `<td class="block md:table-cell p-1 md:p-2">
+                        <textarea id="cell-desc-${i}-${j}" rows="2" placeholder="Descripción..." class="w-full border rounded p-2 text-xs focus:border-guinda text-slate-600 custom-scrollbar resize-y">${valCell}</textarea>
+                    </td>`;
+                }
+                html += `</tr>`;
+            }
+            html += `</tbody>`;
+            table.innerHTML = html;
+        }
+
+        // ====== GESTIÓN DE PLANTILLAS PROPIAS (LOCALSTORAGE) ======
+        function saveAsUserTemplate() {
+            const title = document.getElementById('input-title').value.trim();
+            if (!title) {
+                alert("Para guardar una plantilla propia, asigna primero un Título del Instrumento.");
+                return;
+            }
+
+            let customTemplate = {
+                title: title,
+                subtitle: document.getElementById('input-subtitle').value.trim(),
+                institution: document.getElementById('input-institution').value.trim(),
+                levelsCount: config.levelsCount,
+                criteriaCount: config.criteriaCount,
+                levels: [], weights: [], criteria: []
+            };
+
+            for (let j = 1; j <= config.levelsCount; j++) {
+                customTemplate.levels.push(document.getElementById(`level-title-${j}`).value);
+                customTemplate.weights.push(parseFloat(document.getElementById(`level-weight-${j}`).value) || j);
+            }
+
+            for (let i = 1; i <= config.criteriaCount; i++) {
+                let critObj = {
+                    title: document.getElementById(`criterion-title-${i}`).value,
+                    desc: []
+                };
+                for (let j = 1; j <= config.levelsCount; j++) {
+                    critObj.desc.push(document.getElementById(`cell-desc-${i}-${j}`).value);
+                }
+                customTemplate.criteria.push(critObj);
+            }
+
+            let userTemplates = JSON.parse(localStorage.getItem('cecyte_user_rubrics') || '{}');
+            userTemplates[title] = customTemplate;
+            localStorage.setItem('cecyte_user_rubrics', JSON.stringify(userTemplates));
+
+            alert(`¡Plantilla "${title}" guardada con éxito en este navegador!`);
+            refreshUserTemplatesSelect();
+            document.getElementById('select-template').value = title;
+        }
+
+        function refreshUserTemplatesSelect() {
+            const group = document.getElementById('user-templates-group');
+            group.innerHTML = '';
+            let userTemplates = JSON.parse(localStorage.getItem('cecyte_user_rubrics') || '{}');
+            
+            Object.keys(userTemplates).forEach(key => {
+                let opt = document.createElement('option');
+                opt.value = `user_${key}`;
+                opt.textContent = key;
+                group.appendChild(opt);
+            });
+        }
+
+        function loadSelectedTemplate() {
+            const select = document.getElementById('select-template');
+            const val = select.value;
+            if (!val) return;
+
+            let template;
+            if (val.startsWith('user_')) {
+                const key = val.replace('user_', '');
+                let userTemplates = JSON.parse(localStorage.getItem('cecyte_user_rubrics') || '{}');
+                template = userTemplates[key];
+            } else {
+                template = academicTemplates[val];
+            }
+
+            if (!template) return;
+
+            document.getElementById('input-title').value = template.title;
+            document.getElementById('input-subtitle').value = template.subtitle || "";
+            if (template.institution) document.getElementById('input-institution').value = template.institution;
+
+            config.levelsCount = template.levels.length;
+            config.criteriaCount = template.criteria.length;
+            document.getElementById('display-levels').innerText = config.levelsCount;
+            document.getElementById('display-criteria').innerText = config.criteriaCount;
+
+            generateMatrixForm();
+
+            for (let j = 1; j <= config.levelsCount; j++) {
+                document.getElementById(`level-title-${j}`).value = template.levels[j - 1];
+                document.getElementById(`level-weight-${j}`).value = template.weights ? template.weights[j - 1] : j;
+            }
+
+            for (let i = 1; i <= config.criteriaCount; i++) {
+                document.getElementById(`criterion-title-${i}`).value = template.criteria[i - 1].title;
+                for (let j = 1; j <= config.levelsCount; j++) {
+                    document.getElementById(`cell-desc-${i}-${j}`).value = template.criteria[i - 1].desc[j - 1];
+                }
+            }
+        }
+
+        function deleteUserTemplate() {
+            const select = document.getElementById('select-template');
+            const val = select.value;
+
+            if (!val || !val.startsWith('user_')) {
+                alert("Selecciona primero una de tus plantillas guardadas de la lista para poder eliminarla.");
+                return;
+            }
+
+            const key = val.replace('user_', '');
+            if (confirm(`¿Estás seguro de que deseas eliminar permanentemente la plantilla "${key}"?`)) {
+                let userTemplates = JSON.parse(localStorage.getItem('cecyte_user_rubrics') || '{}');
+                delete userTemplates[key];
+                localStorage.setItem('cecyte_user_rubrics', JSON.stringify(userTemplates));
+                
+                alert("Plantilla eliminada.");
+                select.value = "";
+                refreshUserTemplatesSelect();
+
+                // Refresca el navegador actual
+                location.reload();
+            }
+        }
+
+        // ====== INTERACTIVO DE EVALUACIÓN ======
+        function compileAndBuildRubric() {
+            const rubricTitle = document.getElementById('input-title').value.trim();
+            if(!rubricTitle) {
+                alert("Por favor, introduce un título descriptivo para el instrumento.");
+                return false;
+            }
+
+            evaluationState.selectedScores = {};
+            let levelsInfo = [];
+            for(let j = 1; j <= config.levelsCount; j++) {
+                levelsInfo.push({
+                    title: document.getElementById(`level-title-${j}`).value.trim() || `Nivel ${j}`,
+                    weight: parseFloat(document.getElementById(`level-weight-${j}`).value) || 0
+                });
+            }
+
+            const sortedWeights = [...levelsInfo].map(l => l.weight);
+            const highestWeight = Math.max(...sortedWeights);
+            evaluationState.maxPossibleScore = highestWeight * config.criteriaCount;
+
+            document.getElementById('view-institution').innerText = document.getElementById('input-institution').value.toUpperCase();
+            document.getElementById('view-title').innerText = rubricTitle;
+            document.getElementById('view-subtitle').innerText = document.getElementById('input-subtitle').value;
+
+            const intTable = document.getElementById('interactive-table');
+            let intHtml = `<thead class="hidden md:table-header-group"><tr class="bg-slate-100 text-cecyte-guinda">`;
+            intHtml += `<th class="p-4 font-bold text-xs uppercase tracking-wider w-1/4 border border-slate-300 bg-slate-100">Criterios de Evaluación</th>`;
+            
+            levelsInfo.forEach((level) => {
+                intHtml += `<th class="p-4 font-bold text-xs uppercase tracking-wider text-center border border-slate-300 bg-slate-100">${level.title} <br><span class="text-xs font-normal text-slate-500">(${level.weight} Pts)</span></th>`;
+            });
+            intHtml += `</tr></thead><tbody class="block md:table-row-group flex flex-col gap-4 md:gap-0">`;
+
+            for(let i = 1; i <= config.criteriaCount; i++) {
+                const critTitle = document.getElementById(`criterion-title-${i}`).value.trim() || `Criterio ${i}`;
+                intHtml += `<tr class="flex flex-col md:table-row bg-white shadow-sm" data-criterion-idx="${i}">`;
+                intHtml += `<td class="block md:table-cell p-4 font-bold text-slate-800 bg-slate-50 border border-slate-300 text-sm">${critTitle}</td>`;
+                
+                for(let j = 1; j <= config.levelsCount; j++) {
+                    const cellDesc = document.getElementById(`cell-desc-${i}-${j}`).value.trim() || "No definido.";
+                    const currentWeight = levelsInfo[j-1].weight;
+                    const levelTitle = levelsInfo[j-1].title;
+                    
+                    intHtml += `<td onclick="selectInteractiveCell(this, ${i}, ${currentWeight})" class="score-cell block md:table-cell p-4 border border-slate-300 cursor-pointer text-xs text-justify hover:bg-slate-50 bg-white">
+                                    <span class="block md:hidden font-bold text-cecyte-guinda mb-1 uppercase tracking-wider text-[10px]">${levelTitle} (${currentWeight} Pts)</span>
+                                    <div class="cell-content-text">${cellDesc}</div>
+                                </td>`;
+                }
+                intHtml += `</tr>`;
+            }
+            intHtml += `</tbody>`;
+            intTable.innerHTML = intHtml;
+
+            updateScoreDashboard();
+            return true;
+        }
+
+        function selectInteractiveCell(cellElement, criterionIndex, weight) {
+            const row = cellElement.parentElement;
+            const cellsInRow = row.querySelectorAll('.score-cell');
+            
+            cellsInRow.forEach(cell => {
+                cell.className = "score-cell block md:table-cell p-4 border border-slate-300 cursor-pointer text-xs text-slate-600 text-justify hover:bg-slate-50 bg-white";
+            });
+
+            cellElement.className = "score-cell block md:table-cell p-4 border-2 border-cecyte-oro bg-cecyte-lila font-bold text-cecyte-guinda shadow-inner cursor-pointer text-xs text-justify";
+
+            evaluationState.selectedScores[criterionIndex] = weight;
+            updateScoreDashboard();
+        }
+
+        function updateScoreDashboard() {
+            let currentTotal = 0;
+            let answeredCategoriesCount = 0;
+
+            for(let i = 1; i <= config.criteriaCount; i++) {
+                if(evaluationState.selectedScores[i] !== undefined) {
+                    currentTotal += evaluationState.selectedScores[i];
+                    answeredCategoriesCount++;
+                }
+            }
+
+            document.getElementById('score-display').innerText = `${currentTotal} / ${evaluationState.maxPossibleScore}`;
+            const feedbackBox = document.getElementById('feedback-box');
+
+            if (answeredCategoriesCount < config.criteriaCount) {
+                feedbackBox.className = "bg-amber-50 p-5 rounded-lg border-l-4 border-amber-400 text-sm text-amber-800";
+                feedbackBox.innerHTML = `Faltan evaluar <strong>${config.criteriaCount - answeredCategoriesCount} categorías</strong> para emitir el dictamen.`;
+            } else {
+                let ratio = currentTotal / evaluationState.maxPossibleScore;
+                let badge = ""; let comment = ""; let colorClass = "";
+
+                if (ratio >= 0.90) {
+                    badge = "NIVEL SOBRESALIENTE"; colorClass = "border-emerald-500 bg-emerald-50 text-emerald-800";
+                    comment = "Excelente desempeño. El estudiante demuestra dominio completo y preciso de las competencias analizadas.";
+                } else if (ratio >= 0.65) {
+                    badge = "NIVEL COMPETENTE"; colorClass = "border-blue-500 bg-blue-50 text-blue-800";
+                    comment = "Desempeño adecuado. Logra cubrir satisfactoriamente los objetivos planteados. Detalles mínimos a mejorar.";
+                } else {
+                    badge = "NIVEL INICIAL / REQUIERE APOYO"; colorClass = "border-red-500 bg-red-50 text-red-800";
+                    comment = "Es necesario para estructurar un plan preventivo o de regularización inmediata debido a importantes áreas de oportunidad.";
+                }
+
+                feedbackBox.className = `p-5 rounded-lg border-l-4 text-sm ${colorClass}`;
+                feedbackBox.innerHTML = `<div class="font-bold mb-1 tracking-wider">${badge}</div><p>${comment}</p>`;
+            }
+        }
+
+        function copiarAlPortapapeles() {
+            const evaluado = document.getElementById('student-name').value.trim() || "Evaluado";
+            const evaluador = document.getElementById('evaluator-name').value.trim() || "Evaluador";
+            const grupo = document.getElementById('student-group').value.trim() || "N/A";
+            const puntaje = document.getElementById('score-display').innerText;
+            const dictamenText = document.getElementById('feedback-box').innerText.replace(/\n+/g, ' ');
+            const actividad = document.getElementById('view-subtitle').innerText || document.getElementById('view-title').innerText;
+            
+            // Captura de comentarios adicionales
+            const comentariosDocente = document.getElementById('teacher-comments').value.trim();
+
+            let textoFormateado = `RESULTADO DE EVALUACIÓN ACADÉMICA\n\n` +
+                                    `• Actividad: ${actividad}\n` +
+                                    `• Evaluado: ${evaluado}\n` +
+                                    `• Evaluador: ${evaluador}\n` +
+                                    `• Grupo/Semestre: ${grupo}\n` +
+                                    `• Calificación: ${puntaje} Pts.\n` +
+                                    `• Dictamen: ${dictamenText}`;
+                                    
+            // Si el docente escribió comentarios, se agregan al final del string
+            if(comentariosDocente) {
+                textoFormateado += `\n• Comentarios Adicionales: ${comentariosDocente}`;
+            }
+
+            navigator.clipboard.writeText(textoFormateado).then(() => {
+                alert("¡Resumen copiado con éxito! Ya puedes pegarlo directamente en Classroom, Teams o tu archivo de Excel.");
+            }).catch(err => alert("Error al copiar."));
+        }
+
+        function switchMode(mode) {
+            if(mode === 'edit') {
+                document.getElementById('creator-section').classList.remove('hidden');
+                document.getElementById('evaluation-section').classList.add('hidden');
+            } else {
+                if (compileAndBuildRubric()) {
+                    document.getElementById('creator-section').classList.add('hidden');
+                    document.getElementById('evaluation-section').classList.remove('hidden');
+                }
+            }
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function exportToPDF() {
+            const rubricaContainer = document.getElementById('evaluation-section');
+            const studentName = document.getElementById('student-name').value.trim().replace(/\s+/g, '_') || 'Evaluacion_Alumno';
+            const originalClassName = rubricaContainer.className;
+            const originalStyle = rubricaContainer.getAttribute('style') || '';
+
+            const safeScale = 0.96;
+
+            rubricaContainer.classList.add('transition-none');
+            rubricaContainer.style.overflow = 'visible';
+            rubricaContainer.style.transform = `scale(${safeScale})`;
+            rubricaContainer.style.transformOrigin = 'top left';
+
+            const configuracionPdf = {
+                margin: [0.2, 0.2, 0.2, 0.2],
+                filename: `${studentName}_Rubrica.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 2,
+                    letterRendering: true,
+                    useCORS: true,
+                    scrollY: 0,
+                    windowWidth: document.documentElement.scrollWidth
+                },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait', compress: true },
+                pagebreak: { mode: ['avoid-all', 'css'] }
+            };
+
+            const restoreView = () => {
+                rubricaContainer.className = originalClassName;
+                if (originalStyle) rubricaContainer.setAttribute('style', originalStyle);
+                else rubricaContainer.removeAttribute('style');
+            };
+
+            html2pdf().set(configuracionPdf).from(rubricaContainer).save().then(restoreView).catch(restoreView);
+        }
+
+        function exportToHTML() {
+            document.querySelectorAll('input, textarea').forEach(el => {
+                el.setAttribute('value', el.value);
+                if (el.tagName === 'TEXTAREA') el.innerHTML = el.value;
+            });
+
+            const clonedDocument = document.documentElement.cloneNode(true);
+            clonedDocument.querySelectorAll('script').forEach(scr => scr.remove());
+
+            const headContainer = clonedDocument.querySelector('head');
+            const bodyContainer = clonedDocument.querySelector('body');
+
+            const libTailwind = document.createElement('script'); libTailwind.src = "https://cdn.tailwindcss.com";
+            const libPdf = document.createElement('script'); libPdf.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+            
+            headContainer.appendChild(libTailwind);
+            headContainer.appendChild(libPdf);
+
+            const bootstrapScript = document.createElement('script');
+            bootstrapScript.textContent = `
+                window.loadedOfflineState = true;
+                config = ${JSON.stringify(config)};
+                evaluationState = ${JSON.stringify(evaluationState)};
+                ${generateMatrixForm.toString()}
+                ${compileAndBuildRubric.toString()}
+                ${selectInteractiveCell.toString()}
+                ${updateScoreDashboard.toString()}
+                ${switchMode.toString()}
+                ${exportToPDF.toString()}
+                ${copiarAlPortapapeles.toString()}
+                document.addEventListener("DOMContentLoaded", () => { updateScoreDashboard(); });
+            `;
+            bodyContainer.appendChild(bootstrapScript);
+
+            const standaloneDocument = "<!DOCTYPE html>\n" + clonedDocument.outerHTML;
+            const fileBlob = new Blob([standaloneDocument], { type: 'text/html;charset=utf-8' });
+            const downloaderAnchor = document.createElement('a');
+            const blobUrl = URL.createObjectURL(fileBlob);
+            
+            downloaderAnchor.href = blobUrl;
+            const rubricTitle = document.getElementById('input-title').value.trim().replace(/\s+/g, '_') || 'Matriz';
+            downloaderAnchor.download = "Plataforma_Rubricas_" + rubricTitle + "_Offline.html";
+            
+            document.body.appendChild(downloaderAnchor);
+            downloaderAnchor.click();
+            document.body.removeChild(downloaderAnchor);
+            URL.revokeObjectURL(blobUrl);
+        }
+    </script>
+<script src="../../pwa.js"></script>
+</body>
+</html>

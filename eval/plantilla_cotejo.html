@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creador de Listas de Cotejo | CECYTE</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        guinda: '#651C32',
+                        'guinda-light': '#80243e',
+                        ocre: '#B9975B',
+                        cecyte: {
+                            guinda: '#651C32',
+                            guindaLight: '#80243e',
+                            oro: '#B9975B',
+                            oroLight: '#ceb484',
+                            grisBg: '#f4f6f8',
+                            lila: 'rgba(101, 28, 50, 0.08)',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <meta name="theme-color" content="#651C32">
+    <style>
+        body { font-family: 'Open Sans', sans-serif; }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .rubric-table { border-collapse: separate; border-spacing: 0; }
+        .rubric-table th, .rubric-table td { border: 1px solid #e2e8f0; }
+        .rubric-table thead th { background-color: #f8fafc; }
+        .rubric-table tbody td:first-child { background-color: #f8fafc; }
+        .score-cell { transition: all 0.2s ease-in-out; }
+    </style>
+</head>
+
+
+<body class="bg-cecyte-grisBg text-slate-800 min-h-screen flex flex-col pt-12 my-4">
+
+    <!-- MENÚ DE NAVEGACIÓN MODERNO (STICKY) -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-6 max-w-screen-2xl">
+            <div class="flex justify-between h-16">
+                <!-- Logo e Identidad -->
+                <div class="flex items-center gap-3">
+                    <div>
+                        <span class="font-montserrat font-extrabold text-sm sm:text-base tracking-wider text-cecyte-guinda block leading-none">PORTAL EDUCATIVO</span>
+                    </div>
+                </div>
+
+                <!-- Enlaces de Escritorio -->
+                <div class="hidden lg:flex items-center space-x-1 font-semibold text-xs uppercase tracking-wider">
+                    <a href="/index.html" class="text-slate-600 hover:text-cecyte-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
+                        <i class="fa-solid fa-house"></i> Principal
+                    </a>
+                    <a href="/index.html#Práctica Docente y Evaluación" class="text-slate-600 hover:text-cecyte-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
+                        <i class="fa-solid fa-chalkboard-user"></i> Evaluación y Práctica
+                    </a>
+                    <a href="/index.html#prospectiva" class="text-slate-600 hover:text-cecyte-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
+                        <i class="fa-solid fa-compass-drafting"></i> Prospectiva y Currículo
+                    </a>
+                    <a href="/index.html#Indicadores y Gestión Estratégica" class="text-slate-600 hover:text-cecyte-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie"></i> Estrategia e Indicadores
+                    </a>
+                    <span class="h-6 w-px bg-slate-200 mx-2"></span>
+                    <button id="btn-header-install" class="bg-cecyte-guinda hover:bg-cecyte-guindaLight text-white px-4 py-2 rounded-full transition-all text-[11px] font-bold shadow-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-mobile-screen-button"></i> Instalar App
+                    </button>
+                </div>
+
+                <!-- Botón de Menú Móvil (Hamburguesa) -->
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-cecyte-guinda focus:outline-none p-2 rounded-lg transition-colors">
+                        <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú Desplegable Móvil -->
+        <div id="mobile-dropdown" class="hidden lg:hidden bg-white border-t border-slate-200 shadow-inner px-6 py-4 space-y-3">
+            <a href="/index.html" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
+                <i class="fa-solid fa-house text-cecyte-guinda"></i> Principal
+            </a>
+            <a href="/index.html#Práctica Docente y Evaluación" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
+                <i class="fa-solid fa-chalkboard-user text-cecyte-guinda"></i> Evaluación y Práctica
+            </a>
+           <a href="/index.html#prospectiva" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
+                <i class="fa-solid fa-compass-drafting text-cecyte-guinda"></i> Prospectiva Curricular
+            </a>
+            <a href="/index.html#Indicadores y Gestión Estratégica" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
+                <i class="fa-solid fa-chart-pie text-cecyte-guinda"></i> Gestión Estratégica
+            </a>
+            <div class="border-t border-slate-100 pt-3">
+                <button id="btn-mobile-install" class="w-full bg-cecyte-guinda hover:bg-cecyte-guindaLight text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-mobile-screen-button"></i> Instalar Plataforma PWA
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="creator-section" class="max-w-7xl w-full mx-auto my-4 p-4 bg-white border-2 border-slate-200 rounded-2xl shadow-lg">
+        <header class="border-b-2 border-slate-100 pb-4 mb-6 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+            <div>
+                <h2 class="text-xl font-bold text-cecyte-guinda uppercase flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-cecyte-oro"></i> Creador de Listas de Cotejo con Gestor de Plantillas
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Carga ejemplos formativos de verificación o resguarda tus propios criterios estructurados.</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+                <button type="button" onclick="switchMode('evaluate')" class="bg-cecyte-guinda hover:bg-cecyte-guindaLight text-white font-semibold px-4 py-2 rounded-lg text-sm transition-colors flex items-center gap-2">
+                    <i class="fa-solid fa-clipboard-check"></i> Evaluar
+                </button>
+            </div>
+        </header>
+
+        <div class="bg-cecyte-lila p-4 rounded-xl border border-dashed border-cecyte-guinda/30 mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-xs font-bold text-cecyte-guinda uppercase mb-1.5"><i class="fa-solid fa-bolt text-cecyte-oro mr-1"></i> 1. Plantillas Predeterminadas o propias:</label>
+                <select id="select-template" onchange="loadSelectedTemplate()" class="w-full bg-white border-2 border-slate-200 rounded-lg p-2 text-sm focus:border-guinda focus:outline-none font-semibold text-slate-700 cursor-pointer">
+                    <option value="">-- Seleccionar una plantilla --</option>
+                    <optgroup label="Modelos Institucionales Preestablecidos">
+                        <option value="proyecto_ciencias">Entrega de Proyecto Experimental de Ciencias</option>
+                        <option value="ensayo_academico">Estructura de Ensayo o Reporte Escrito</option>
+                        <option value="practica_taller">Desempeño en Práctica de Taller / Laboratorio</option>
+                    </optgroup>
+                    <optgroup label="Mis Listas Guardadas (Local)" id="user-templates-group"></optgroup>
+                </select>
+            </div>
+            <div class="flex items-end gap-2">
+                <button type="button" onclick="saveAsUserTemplate()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition shadow-sm uppercase tracking-wider flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-floppy-disk"></i> Guardar Mi Lista
+                </button>
+                <button type="button" onclick="deleteUserTemplate()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition shadow-sm uppercase tracking-wider flex items-center justify-center" title="Eliminar lista seleccionada">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div>
+                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Plantel / Institución:</label>
+                <input type="text" id="input-institution" value="CECyTE Puebla - Huejotzingo" class="w-full border-2 border-slate-200 rounded-lg p-2.5 text-sm focus:border-guinda focus:outline-none transition-colors">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Título del Instrumento:</label>
+                <input type="text" id="input-title" placeholder="Ej. Lista de Cotejo de Maqueta" class="w-full border-2 border-slate-200 rounded-lg p-2.5 text-sm focus:border-guinda focus:outline-none transition-colors">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Producto / Actividad Asociada:</label>
+                <input type="text" id="input-subtitle" placeholder="Ej. Reporte Ejecutivo de Logística" class="w-full border-2 border-slate-200 rounded-lg p-2.5 text-sm focus:border-guinda focus:outline-none transition-colors">
+            </div>
+        </div>
+
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-6 flex flex-wrap gap-6 items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Cantidad de Indicadores a Evaluar:</label>
+                    <div class="flex items-center gap-1">
+                        <button onclick="changeDimensions(-1)" class="w-8 h-8 bg-white border border-slate-300 rounded-lg font-bold hover:bg-slate-100">-</button>
+                        <span id="display-indicators" class="w-10 text-center font-bold text-lg text-cecyte-guinda">5</span>
+                        <button onclick="changeDimensions(1)" class="w-8 h-8 bg-white border border-slate-300 rounded-lg font-bold hover:bg-slate-100">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto border border-slate-200 rounded-xl bg-white shadow-inner p-2 mb-6">
+            <table class="w-full text-left text-sm border-collapse" id="indicators-form-table"></table>
+        </div>
+
+        <div class="text-right">
+            <button onclick="switchMode('evaluate')" class="bg-cecyte-oroLight hover:bg-cecyte-oro text-white font-bold py-3.5 px-8 rounded-xl uppercase tracking-wider transition-all shadow-md text-sm w-full md:w-auto">
+                <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Convertir en Lista Activa
+            </button>
+        </div>
+    </main>
+
+    <main id="evaluation-section" class="pt-0 hidden max-w-7xl w-full box-border mx-auto my-2 bg-white border-2 border-slate-200 rounded-xl shadow-lg overflow-visible relative pb-4">
+        <header class="bg-cecyte-guinda text-white p-2.5 md:p-3 border-b-4 border-ocre relative break-inside-avoid">
+            <div id="view-institution" class="text-xs md:text-sm font-semibold uppercase tracking-widest text-cecyte-oroLight mb-1">CECYTE INSTITUCIONAL</div>
+            <button type="button" onclick="switchMode('edit')" class="absolute top-2.5 right-2.5 md:top-3 md:right-3 bg-cecyte-guinda hover:bg-cecyte-guindaLight text-white font-semibold px-4 py-2 rounded-lg text-sm transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-sliders"></i> Modificar
+            </button>
+            <h1 id="view-title" class="text-xl md:text-xl font-extrabold uppercase tracking-tight leading-tight">Lista de Cotejo</h1>
+            <p id="view-subtitle" class="text-sm md:text-base mt-0.5 text-amber-100 font-medium"></p>
+        </header>
+
+        <div class="p-1.5 bg-slate-50 border-b border-slate-200">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-1.5 bg-white p-1.5 rounded-lg border border-slate-200 shadow-sm mb-1.5">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1"><i class="fa-solid fa-user text-cecyte-oro mr-1"></i> Nombre del Evaluado:</label>
+                    <input type="text" id="student-name" placeholder="Apellido(s) Nombre(s)" class="w-full border-b-2 border-slate-200 focus:border-guinda focus:outline-none p-1.5 text-sm bg-transparent transition-colors">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1"><i class="fa-solid fa-graduation-cap text-cecyte-oro mr-1"></i> Carrera / Especialidad:</label>
+                    <input type="text" id="student-career" placeholder="Ej. Soporte y Mantenimiento de Cómputo" class="w-full border-b-2 border-slate-200 focus:border-guinda focus:outline-none p-1.5 text-sm bg-transparent transition-colors">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1"><i class="fa-solid fa-users text-cecyte-oro mr-1"></i> Grupo / Semestre:</label>
+                    <input type="text" id="student-group" placeholder="Ej. 4° B" class="w-full border-b-2 border-slate-200 focus:border-guinda focus:outline-none p-1.5 text-sm bg-transparent transition-colors">
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-1.5 bg-white p-1.5 rounded-lg border border-slate-200 shadow-sm">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1"><i class="fa-solid fa-user-tie text-cecyte-oro mr-1"></i> Nombre del Evaluador:</label>
+                    <input type="text" id="evaluator-name" placeholder="Nombre(s) Apellido(s)" class="w-full border-b-2 border-slate-200 focus:border-cecyte-guinda focus:outline-none p-1.5 text-sm bg-transparent transition-colors">
+                </div>
+            </div>
+        </div>
+
+        <div class="sticky top-16 z-40 bg-white border-b border-slate-200 p-1.5 shadow-sm flex flex-col md:flex-row justify-between items-center gap-1.5">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-square-poll-vertical text-xl text-cecyte-guinda"></i>
+                <div>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Cumplimiento del Estudiante</h3>
+                    <p class="text-xs text-slate-500">Marque el cumplimiento por cada indicador reactivo listado.</p>
+                </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
+                <div class="bg-slate-900 text-emerald-400 font-mono px-4 py-1.5 rounded-lg text-center shadow-inner flex flex-col items-center">
+                    <span id="score-display" class="text-xl font-bold">0 / 0</span>
+                    <span id="percent-display" class="text-[10px] text-slate-400">0% de efectividad</span>
+                </div>
+                <button onclick="copiarAlPortapapeles()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-lg transition duration-200 text-sm shadow-sm flex items-center gap-1.5">
+                    <i class="fa-solid fa-copy"></i> Copiar Resumen
+                </button>
+                <button onclick="exportToPDF()" class="bg-cecyte-oro hover:bg-amber-600 text-white font-bold py-2 px-3 rounded-lg transition duration-200 text-sm shadow-sm">
+                    <i class="fa-solid fa-file-pdf mr-1.5"></i>PDF
+                </button>
+                <button onclick="exportToHTML()" class="bg-slate-700 hover:bg-slate-800 text-white font-bold py-2 px-3 rounded-lg transition duration-200 text-sm shadow-sm">
+                    <i class="fa-solid fa-file-code mr-1.5"></i>Descargar
+                </button>
+            </div>
+        </div>
+
+        <div class="p-2 overflow-x-auto">
+            <table class="checklist-table w-full text-left border-collapse bg-white" id="interactive-table"></table>
+        </div>
+
+        <div class="p-3 border-t border-slate-200 bg-white mt-1.5">
+            <h3 class="text-sm font-bold text-guinda uppercase tracking-widest mb-3"><i class="fa-solid fa-comment-dots text-ocre mr-1"></i> Diagnóstico Formativo</h3>
+            <div id="feedback-box" class="bg-slate-100 p-4 rounded-lg border-l-4 border-slate-300 text-sm text-slate-600 italic mb-3">
+                Los niveles se calcularán al mapear el cumplimiento.
+            </div>
+            <div class="mt-4">
+                <label class="block text-xs font-bold text-slate-600 uppercase mb-1"><i class="fa-solid fa-pen-to-square text-cecyte-oro mr-1"></i> Comentarios adicionales del evaluador:</label>
+                <textarea id="teacher-comments" rows="3" placeholder="Registre áreas de mejora obligatorias o comentarios específicos del proceso..." class="w-full border-2 border-slate-200 rounded-lg p-2.5 text-sm focus:border-guinda focus:outline-none transition-colors resize-y custom-scrollbar text-slate-700"></textarea>
+            </div>
+        </div>
+    </main>
+
+    <footer id="evaluation-section" class="max-w-7xl w-full mx-auto my-2 px-auto bg-cecyte-guinda rounded-2xl text-slate-400 border-slate-800 text-xs py-4 shadow-lg">
+        <div class="px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <p class="font-bold text-slate-200">CECYTE Puebla — Desarrollos de Software 2026</p>
+                <p class="text-cecyte-oroLight mt-0.5">Todos los derechos de cálculo y lógicas operativas reservados del autor.</p>
+            </div>
+            <div class="flex gap-4 text-cecyte-oroLight font-mono">
+                <span>Julian Sadak Vergara Cruz</span>
+                <span>|</span>
+                <span>Tailwind CSS</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+            let config = { indicatorsCount: 5 };
+            let evaluationState = { selections: {}, maxScore: 0 };
+
+            // --- FUNCIONES PARA EL MENÚ DE HAMBURGUESA ---
+            document.addEventListener("DOMContentLoaded", () => {
+                generateIndicatorsForm();
+                refreshUserTemplatesSelect();
+                
+                // Escuchar el clic del botón de hamburguesa
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                if (mobileMenuBtn) {
+                    mobileMenuBtn.addEventListener('click', toggleMenu);
+                }
+            });
+
+            function toggleMenu() {
+                const dropdown = document.getElementById('mobile-dropdown');
+                const icon = document.getElementById('menu-icon');
+                const button = document.getElementById('mobile-menu-btn');
+                
+                if (dropdown && icon) {
+                    const isHidden = dropdown.classList.contains('hidden');
+                    
+                    if (isHidden) {
+                        dropdown.classList.remove('hidden');
+                        button.setAttribute('aria-expanded', 'true');
+                        // Cambia el icono a una "X" cuando está abierto
+                        icon.className = "fa-solid fa-xmark text-xl"; 
+                    } else {
+                        dropdown.classList.add('hidden');
+                        button.setAttribute('aria-expanded', 'false');
+                        // Vuelve al icono de barras cuando se cierra
+                        icon.className = "fa-solid fa-bars text-xl";
+                    }
+                }
+            }
+            // ----------------------------------------------
+
+        // PLANTILLAS PREDETERMINADAS
+        const defaultTemplates = {
+            proyecto_ciencias: {
+                title: "Lista de Cotejo: Proyecto Científico Experimental",
+                subtitle: "Evidencia de Metodología y Prototipo",
+                indicators: [
+                    "Plantea una hipótesis clara y delimita el problema de investigación.",
+                    "El prototipo o experimento funciona correctamente bajo las normas de seguridad del laboratorio.",
+                    "Recopila datos organizados mediante tablas, gráficos o bitácoras específicas.",
+                    "El informe incluye bibliografía sustentada de acuerdo al formato APA vigente.",
+                    "Explica con fluidez y responde de forma asertiva los cuestionamientos planteados por el docente."
+                ],
+                weights: [2, 2, 2, 2, 2]
+            },
+            ensayo_academico: {
+                title: "Lista de Cotejo: Redacción de Ensayo Académico",
+                subtitle: "Competencia de Expresión Escrita",
+                indicators: [
+                    "Presenta un título original, delimitado y acorde al tema planteado.",
+                    "Contiene una introducción clara donde se visualiza perfectamente la tesis o postura central.",
+                    "Los argumentos expuestos en el desarrollo se encuentran debidamente fundamentados en citas textuales.",
+                    "Mantiene una coherencia, excelente cohesión de párrafos y ausencia total de faltas ortográficas.",
+                    "Las conclusiones retoman la tesis central y proponen reflexiones finales consistentes."
+                ],
+                weights: [1, 2, 3, 2, 2]
+            },
+            practica_taller: {
+                title: "Lista de Cotejo: Ejecución Práctica en Taller Técnico",
+                subtitle: "Habilidades Procedimentales y Técnicas",
+                indicators: [
+                    "Porta el uniforme, equipo de protección personal (EPP) y herramientas obligatorias del taller.",
+                    "Sigue de forma rigurosa los pasos estructurados en el manual de prácticas sin saltarse pautas.",
+                    "Mantiene el área de trabajo limpia, ordenada y libre de riesgos potenciales durante la jornada.",
+                    "Resuelve de forma autónoma anomalías o contratiempos con el equipo asignado.",
+                    "Entrega los resultados o piezas finales dentro de las tolerancias técnicas requeridas."
+                ],
+                weights: [2, 2, 2, 2, 2]
+            }
+        };
+
+        
+        function changeDimensions(delta) {
+            config.indicatorsCount = Math.max(1, Math.min(25, config.indicatorsCount + delta));
+            document.getElementById('display-indicators').innerText = config.indicatorsCount;
+            generateIndicatorsForm(true);
+        }
+
+        function generateIndicatorsForm(keepValues = false) {
+            const table = document.getElementById('indicators-form-table');
+            let cache = {};
+
+            if (keepValues) {
+                for (let i = 1; i <= 25; i++) {
+                    let textInput = document.getElementById(`ind-text-${i}`);
+                    let valInput = document.getElementById(`ind-val-${i}`);
+                    if (textInput) cache[`t-${i}`] = textInput.value;
+                    if (valInput) cache[`v-${i}`] = valInput.value;
+                }
+            }
+
+            let html = `<thead><tr class="bg-slate-100 text-cecyte-guinda border-b-2 border-slate-200">
+                <th class="p-3 font-bold text-xs uppercase tracking-wider text-center w-16">No.</th>
+                <th class="p-3 font-bold text-xs uppercase tracking-wider text-left">Indicador de Logro / Aspecto a Verificar</th>
+                <th class="p-3 font-bold text-xs uppercase tracking-wider text-center w-32">Puntaje / Peso</th>
+            </tr></thead><tbody class="divide-y divide-slate-200">`;
+
+            for (let i = 1; i <= config.indicatorsCount; i++) {
+                let textVal = cache[`t-${i}`] || "";
+                let scoreVal = cache[`v-${i}`] || "2";
+                html += `<tr class="hover:bg-slate-50/50 bg-white">
+                    <td class="p-3 text-center font-bold text-slate-500">${i}</td>
+                    <td class="p-2">
+                        <input type="text" id="ind-text-${i}" value="${textVal}" placeholder="Describa el indicador reactivo..." class="w-full border rounded p-2 text-sm focus:border-guinda text-slate-700">
+                    </td>
+                    <td class="p-2 text-center">
+                        <div class="flex items-center justify-center gap-1 text-xs">
+                            <input type="number" step="0.5" id="ind-val-${i}" value="${scoreVal}" class="w-16 text-center p-1 border rounded font-mono font-bold text-cecyte-guinda focus:outline-none"> pts
+                        </div>
+                    </td>
+                </tr>`;
+            }
+            html += `</tbody>`;
+            table.innerHTML = html;
+        }
+
+        // LOCALSTORAGE MANAGEMENT
+        function saveAsUserTemplate() {
+            const title = document.getElementById('input-title').value.trim();
+            if (!title) {
+                alert("Asigna un 'Título del Instrumento' antes de archivar de forma interna.");
+                return;
+            }
+
+            let customTemplate = {
+                title: title,
+                subtitle: document.getElementById('input-subtitle').value.trim(),
+                institution: document.getElementById('input-institution').value.trim(),
+                indicatorsCount: config.indicatorsCount,
+                indicators: [],
+                weights: []
+            };
+
+            for (let i = 1; i <= config.indicatorsCount; i++) {
+                customTemplate.indicators.push(document.getElementById(`ind-text-${i}`).value);
+                customTemplate.weights.push(parseFloat(document.getElementById(`ind-val-${i}`).value) || 0);
+            }
+
+            let userLists = JSON.parse(localStorage.getItem('cecyte_user_checklists') || '{}');
+            userLists[title] = customTemplate;
+            localStorage.setItem('cecyte_user_checklists', JSON.stringify(userLists));
+
+            alert(`Lista "${title}" guardada con éxito en este navegador.`);
+            refreshUserTemplatesSelect();
+            document.getElementById('select-template').value = `user_${title}`;
+        }
+
+        function refreshUserTemplatesSelect() {
+            const group = document.getElementById('user-templates-group');
+            group.innerHTML = '';
+            let userLists = JSON.parse(localStorage.getItem('cecyte_user_checklists') || '{}');
+            
+            Object.keys(userLists).forEach(key => {
+                let opt = document.createElement('option');
+                opt.value = `user_${key}`;
+                opt.textContent = key;
+                group.appendChild(opt);
+            });
+        }
+
+        function loadSelectedTemplate() {
+            const select = document.getElementById('select-template');
+            const val = select.value;
+            if (!val) return;
+
+            let t;
+            if (val.startsWith('user_')) {
+                const key = val.replace('user_', '');
+                let userLists = JSON.parse(localStorage.getItem('cecyte_user_checklists') || '{}');
+                t = userLists[key];
+            } else {
+                t = defaultTemplates[val];
+            }
+
+            if (!t) return;
+
+            document.getElementById('input-title').value = t.title;
+            document.getElementById('input-subtitle').value = t.subtitle || "";
+            if (t.institution) document.getElementById('input-institution').value = t.institution;
+
+            config.indicatorsCount = t.indicators.length;
+            document.getElementById('display-indicators').innerText = config.indicatorsCount;
+
+            generateIndicatorsForm();
+
+            for (let i = 1; i <= config.indicatorsCount; i++) {
+                document.getElementById(`ind-text-${i}`).value = t.indicators[i - 1];
+                document.getElementById(`ind-val-${i}`).value = t.weights[i - 1];
+            }
+        }
+
+        function deleteUserTemplate() {
+            const select = document.getElementById('select-template');
+            const val = select.value;
+
+            if (!val || !val.startsWith('user_')) {
+                alert("Por favor seleccione un instrumento personalizado.");
+                return;
+            }
+
+            const key = val.replace('user_', '');
+            if (confirm(`¿Eliminar permanentemente la lista de cotejo "${key}"?`)) {
+                let userLists = JSON.parse(localStorage.getItem('cecyte_user_checklists') || '{}');
+                delete userLists[key];
+                localStorage.setItem('cecyte_user_checklists', JSON.stringify(userLists));
+                location.reload();
+            }
+        }
+
+        // LOGICAS DE INTERACTIVIDAD DE EVALUACIÓN
+        function compileAndBuildChecklist() {
+            const titleStr = document.getElementById('input-title').value.trim();
+            if (!titleStr) {
+                alert("Es indispensable un título descriptivo para la Lista.");
+                return false;
+            }
+
+            evaluationState.selections = {};
+            let totalMax = 0;
+
+            document.getElementById('view-institution').innerText = document.getElementById('input-institution').value.toUpperCase();
+            document.getElementById('view-title').innerText = titleStr;
+            document.getElementById('view-subtitle').innerText = document.getElementById('input-subtitle').value;
+
+            const intTable = document.getElementById('interactive-table');
+            let html = `<thead><tr class="bg-slate-100 text-cecyte-guinda">
+                <th class="p-3 font-bold text-xs uppercase tracking-wider text-center w-12 border border-slate-300">No.</th>
+                <th class="p-3 font-bold text-xs uppercase tracking-wider border border-slate-300">Indicadores Académicos</th>
+                <th class="p-3 font-bold text-xs uppercase tracking-wider text-center w-24 border border-slate-300">Valor</th>
+                <th class="p-3 font-bold text-xs uppercase tracking-wider text-center w-40 border border-slate-300" colspan="2">Cumplimiento</th>
+            </tr></thead><tbody>`;
+
+            for (let i = 1; i <= config.indicatorsCount; i++) {
+                const indText = document.getElementById(`ind-text-${i}`).value.trim() || `Criterio Reactivo ${i}`;
+                const indVal = parseFloat(document.getElementById(`ind-val-${i}`).value) || 0;
+                totalMax += indVal;
+
+                html += `<tr class="bg-white border-b border-slate-200" data-row-idx="${i}">
+                    <td class="p-3 text-center font-bold text-slate-400 border border-slate-200">${i}</td>
+                    <td class="p-3 text-sm text-slate-700 border border-slate-200">${indText}</td>
+                    <td class="p-3 text-center font-mono font-bold text-slate-600 border border-slate-200 bg-slate-50/50">${indVal} pts</td>
+                    <td onclick="toggleCompliance(this, ${i}, ${indVal}, true)" class="p-3 text-center font-bold text-xs uppercase cursor-pointer border border-slate-200 hover:bg-emerald-50 text-slate-400 select-none transition-colors w-20">Sí</td>
+                    <td onclick="toggleCompliance(this, ${i}, 0, false)" class="p-3 text-center font-bold text-xs uppercase cursor-pointer border border-slate-200 hover:bg-red-50 text-slate-400 select-none transition-colors w-20">No</td>
+                </tr>`;
+            }
+            html += `</tbody>`;
+            intTable.innerHTML = html;
+
+            evaluationState.maxScore = totalMax;
+            updateScoreDashboard();
+            return true;
+        }
+
+        function toggleCompliance(cellElement, index, score, compliance) {
+            const row = cellElement.parentElement;
+            const cells = row.querySelectorAll('td');
+            
+            // Reset de estilos de las celdas de "Sí" y "No"
+            cells[3].className = "p-3 text-center font-bold text-xs uppercase cursor-pointer border border-slate-200 hover:bg-emerald-50 text-slate-400 select-none";
+            cells[4].className = "p-3 text-center font-bold text-xs uppercase cursor-pointer border border-slate-200 hover:bg-red-50 text-slate-400 select-none";
+
+            if (compliance) {
+                cells[3].className = "p-3 text-center font-bold text-xs uppercase cursor-pointer border-2 border-emerald-600 bg-emerald-100 text-emerald-800 font-extrabold select-none";
+                evaluationState.selections[index] = score;
+            } else {
+                cells[4].className = "p-3 text-center font-bold text-xs uppercase cursor-pointer border-2 border-red-600 bg-red-100 text-red-800 font-extrabold select-none";
+                evaluationState.selections[index] = 0;
+            }
+            updateScoreDashboard();
+        }
+
+        function updateScoreDashboard() {
+            let currentTotal = 0;
+            let answeredCount = 0;
+
+            for (let i = 1; i <= config.indicatorsCount; i++) {
+                if (evaluationState.selections[i] !== undefined) {
+                    currentTotal += evaluationState.selections[i];
+                    answeredCount++;
+                }
+            }
+
+            document.getElementById('score-display').innerText = `${currentTotal} / ${evaluationState.maxScore}`;
+            
+            let percent = evaluationState.maxScore > 0 ? Math.round((currentTotal / evaluationState.maxScore) * 100) : 0;
+            document.getElementById('percent-display').innerText = `${percent}% de efectividad`;
+
+            const fBox = document.getElementById('feedback-box');
+            if (answeredCount < config.indicatorsCount) {
+                fBox.className = "bg-amber-50 p-5 rounded-lg border-l-4 border-amber-400 text-sm text-amber-800";
+                fBox.innerHTML = `Faltan verificar <strong>${config.indicatorsCount - answeredCount} reactivos</strong> para concretar el diagnóstico académico.`;
+            } else {
+                let badge = ""; let colorClass = ""; let advice = "";
+                if (percent >= 90) {
+                    badge = "PRODUCTO ACEPTADO - SATISFACTORIO"; colorClass = "border-emerald-500 bg-emerald-50 text-emerald-800";
+                    advice = "Cumple plenamente con los estándares previstos del módulo técnico.";
+                } else if (percent >= 70) {
+                    badge = "PRODUCTO ACEPTADO CON CONDICIONES / MEJORAS"; colorClass = "border-blue-500 bg-blue-50 text-blue-800";
+                    advice = "El trabajo solventa lo indispensable pero presenta áreas pendientes específicas.";
+                } else {
+                    badge = "PRODUCTO NO ACEPTADO / REQUIERE REDISEÑO"; colorClass = "border-red-500 bg-red-50 text-red-800";
+                    advice = "No se cubren los elementos mínimos de validez. Agendar asesoría de regularización.";
+                }
+                fBox.className = `p-5 rounded-lg border-l-4 text-sm ${colorClass}`;
+                fBox.innerHTML = `<div class="font-bold mb-1 tracking-wider">${badge}</div><p>${advice}</p>`;
+            }
+        }
+
+        function switchMode(mode) {
+            if (mode === 'edit') {
+                document.getElementById('creator-section').classList.remove('hidden');
+                document.getElementById('evaluation-section').classList.add('hidden');
+            } else {
+                if (compileAndBuildChecklist()) {
+                    document.getElementById('creator-section').classList.add('hidden');
+                    document.getElementById('evaluation-section').classList.remove('hidden');
+                }
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function copiarAlPortapapeles() {
+            const ev = document.getElementById('student-name').value.trim() || "Evaluado";
+            const prof = document.getElementById('evaluator-name').value.trim() || "Docente";
+            const pts = document.getElementById('score-display').innerText;
+            const pct = document.getElementById('percent-display').innerText;
+            const diag = document.getElementById('feedback-box').innerText.replace(/\n+/g, ' ');
+            const comm = document.getElementById('teacher-comments').value.trim();
+
+            let txt = `REGISTRO DE LISTA DE COTEJO\n\n` +
+                      `• Actividad: ${document.getElementById('view-title').innerText}\n` +
+                      `• Estudiante/Equipo: ${ev}\n` +
+                      `• Evaluador: ${prof}\n` +
+                      `• Calificación: ${pts} (${pct})\n` +
+                      `• Diagnóstico: ${diag}`;
+            if (comm) txt += `\n• Compromisos/Notas: ${comm}`;
+
+            navigator.clipboard.writeText(txt).then(() => {
+                alert("¡Resultados copiados al portapapeles de forma exitosa!");
+            });
+        }
+
+        function exportToPDF() {
+            const area = document.getElementById('evaluation-section');
+            const name = document.getElementById('student-name').value.trim().replace(/\s+/g, '_') || 'Cotejo';
+            
+            const opt = {
+                margin: [0.2, 0.2, 0.2, 0.2],
+                filename: `Lista_Cotejo_${name}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    scrollY: 0,
+                    windowWidth: document.documentElement.scrollWidth
+                },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait', compress: true },
+                pagebreak: { mode: ['avoid-all', 'css'] }
+            };
+            html2pdf().set(opt).from(area).save();
+        }
+
+        function exportToHTML() {
+            document.querySelectorAll('input, textarea').forEach(el => {
+                el.setAttribute('value', el.value);
+                if (el.tagName === 'TEXTAREA') el.innerHTML = el.value;
+            });
+
+            const clone = document.documentElement.cloneNode(true);
+            clone.querySelectorAll('script').forEach(s => s.remove());
+
+            const head = clone.querySelector('head');
+            const body = clone.querySelector('body');
+
+            const tailwind = document.createElement('script'); tailwind.src = "https://cdn.tailwindcss.com";
+            const pdfLib = document.createElement('script'); pdfLib.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+            head.appendChild(tailwind);
+            head.appendChild(pdfLib);
+
+            const scriptInyectado = document.createElement('script');
+            scriptInyectado.textContent = `
+                config = ${JSON.stringify(config)};
+                evaluationState = ${JSON.stringify(evaluationState)};
+                ${generateIndicatorsForm.toString()}
+                ${compileAndBuildChecklist.toString()}
+                ${toggleCompliance.toString()}
+                ${updateScoreDashboard.toString()}
+                ${switchMode.toString()}
+                ${exportToPDF.toString()}
+                ${copiarAlPortapapeles.toString()}
+            `;
+            body.appendChild(scriptInyectado);
+
+            const blob = new Blob(["<!DOCTYPE html>\n" + clone.outerHTML], { type: 'text/html;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = "Lista_Cotejo_Compilada_Offline.html";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+<script src="../../pwa.js"></script>
+</body>
+</html>
