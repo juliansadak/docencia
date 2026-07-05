@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cecyte-portal-cache-v2';
+const CACHE_NAME = 'portal-educativo-cache-v2';
 
 // URLs base para evitar problemas con rutas relativas en producción
 const getAssetUrl = (path) => {
@@ -18,13 +18,12 @@ const ASSETS_TO_CACHE = [
   getAssetUrl('/pwa.js'),
   getAssetUrl('/julianprofile.png'),
   getAssetUrl('/juliansadak.png'),
-  getAssetUrl('/logo.png'),
+  getAssetUrl('/julianprofile.png'),
   getAssetUrl('/arturodiaz.png'),
-  getAssetUrl('/cecyte/lms.html'),
-  getAssetUrl('/cecyte/eval/plantilla_rubrica.html'),
-  getAssetUrl('/cecyte/eval/plantilla_observacion.html'),
-  getAssetUrl('/cecyte/eval/plantilla_estimativa.html'),
-  getAssetUrl('/cecyte/eval/plantilla_cotejo.html')
+  getAssetUrl('/eval/plantilla_rubrica.html'),
+  getAssetUrl('/eval/plantilla_observacion.html'),
+  getAssetUrl('/eval/plantilla_estimativa.html'),
+  getAssetUrl('/eval/plantilla_cotejo.html')
 ];
 
 // Evento de Instalación del Service Worker

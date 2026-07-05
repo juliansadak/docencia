@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecosistema Digital de Soluciones Educativas | CECYTE</title>
+    <title>Ecosistema Digital de Soluciones Educativas</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -21,18 +21,25 @@
                         montserrat: ['Montserrat', 'sans-serif'],
                     },
                     colors: {
-                        // Colores directos para solucionar las clases sueltas y de JS
-                        guinda: '#651C32',
-                        'guinda-light': '#80243e',
-                        ocre: '#B9975B',
-                        // Estructura original para las clases bg-cecyte-*
-                        cecyte: {
-                            guinda: '#651C32',
-                            guindaLight: '#80243e',
-                            oro: '#B9975B',
-                            oroLight: '#ceb484',
-                            grisBg: '#f4f6f8',
-                            lila: 'rgba(101, 28, 50, 0.08)',
+                        primary: '#2563EB',
+                        secondary: '#1E40AF',
+                        accent: '#10B981',
+                        fondo: '#F8FAFC',
+                        tarjetas: '#FFFFFF',
+                        'text-primary': '#1F2937',
+                        'text-secondary': '#6B7280',
+                        error: '#EF4444',
+                        warning: '#F59E0B',
+                        guinda: '#2563EB',
+                        'guinda-light': '#1E40AF',
+                        ocre: '#10B981',
+                        edu: {
+                            guinda: '#2563EB',
+                            guindaLight: '#1E40AF',
+                            oro: '#10B981',
+                            oroLight: '#A7F3D0',
+                            grisBg: '#F8FAFC',
+                            lila: 'rgba(37, 99, 235, 0.08)',
                         }
                     }
                 }
@@ -41,25 +48,36 @@
     </script>
 
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#651C32">
+    <meta name="theme-color" content="#2563EB">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="#651C32">
-    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="apple-touch-icon" href="julianprofile.png">
 
     <style>
-        body { font-family: 'Open Sans', sans-serif; }
+        :root {
+            --color-primary: #2563EB;
+            --color-secondary: #1E40AF;
+            --color-accent: #10B981;
+            --color-bg: #F8FAFC;
+            --color-card: #FFFFFF;
+            --color-text: #1F2937;
+            --color-muted: #6B7280;
+            --color-error: #EF4444;
+            --color-warning: #F59E0B;
+        }
+        body { font-family: 'Open Sans', sans-serif; background-color: var(--color-bg); color: var(--color-text); }
         h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
-        [id="Práctica Docente y Evaluación"] .group:hover { background-color: #e6f2ee}
-        [id="Práctica Docente y Evaluación"] .group:hover .bg-slate-50 { background-color: #ceb484; }
-        [id="prospectiva"] .group:hover { background-color: #e8edfb}
-        [id="prospectiva"] .group:hover .bg-slate-50 { background-color: #ceb484; }
-        [id="Indicadores y Gestión Estratégica"] .group:hover { background-color: #f2e9ec}
-        [id="Indicadores y Gestión Estratégica"] .group:hover .bg-slate-50 { background-color: #ceb484; }
+        [id="Práctica Docente y Evaluación"] .group:hover { background-color: rgba(37, 99, 235, 0.08) }
+        [id="Práctica Docente y Evaluación"] .group:hover .bg-slate-50 { background-color: rgba(16, 185, 129, 0.18); }
+        [id="prospectiva"] .group:hover { background-color: rgba(16, 185, 129, 0.10) }
+        [id="prospectiva"] .group:hover .bg-slate-50 { background-color: rgba(37, 99, 235, 0.16); }
+        [id="Indicadores y Gestión Estratégica"] .group:hover { background-color: rgba(30, 64, 175, 0.08) }
+        [id="Indicadores y Gestión Estratégica"] .group:hover .bg-slate-50 { background-color: rgba(16, 185, 129, 0.16); }
 
     </style>
 </head>
 
-<body class="bg-cecyte-grisBg text-slate-800 min-h-screen flex flex-col pt-16">
+<body class="bg-fondo text-text-primary min-h-screen flex flex-col pt-16">
 
     <!-- MENÚ DE NAVEGACIÓN MODERNO (STICKY) -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
@@ -67,34 +85,31 @@
             <div class="flex justify-between h-16">
                 <!-- Logo e Identidad -->
                 <div class="flex items-center gap-3">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-xl border-2 border-dashed border-slate-300 bg-slate-50/80 flex items-center justify-center text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500 text-center leading-tight">
+                        Logo
+                    </div>
                     <div>
-                        <span class="font-montserrat font-extrabold text-sm sm:text-base tracking-wider text-cecyte-guinda block leading-none">PORTAL EDUCATIVO</span>
+                        <span class="font-montserrat font-extrabold text-sm sm:text-base tracking-wider text-edu-guinda block leading-none">PORTAL EDUCATIVO</span>
                     </div>
                 </div>
 
                 <!-- Enlaces de Escritorio -->
                 <div class="hidden lg:flex items-center space-x-1 font-semibold text-xs uppercase tracking-wider">
-                    <a href="/index.html" class="text-slate-600 hover:text-cecyte-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
+                    <a href="index.html" class="text-slate-600 hover:text-edu-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
                         <i class="fa-solid fa-house"></i> Principal
                     </a>
-                    <a href="/index.html#Práctica Docente y Evaluación" class="text-slate-600 hover:text-cecyte-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
+                    <a href="index.html#Práctica Docente y Evaluación" class="text-slate-600 hover:text-edu-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
                         <i class="fa-solid fa-chalkboard-user"></i> Evaluación y Práctica
                     </a>
-                    <a href="/index.html#prospectiva" class="text-slate-600 hover:text-cecyte-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
-                        <i class="fa-solid fa-compass-drafting"></i> Prospectiva y Currículo
-                    </a>
-                    <a href="/index.html#Indicadores y Gestión Estratégica" class="text-slate-600 hover:text-cecyte-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
-                        <i class="fa-solid fa-chart-pie"></i> Estrategia e Indicadores
-                    </a>
                     <span class="h-6 w-px bg-slate-200 mx-2"></span>
-                    <button id="btn-header-install" class="bg-cecyte-guinda hover:bg-cecyte-guindaLight text-white px-4 py-2 rounded-full transition-all text-[11px] font-bold shadow-sm flex items-center gap-1.5">
+                    <button id="btn-header-install" class="bg-edu-guinda hover:bg-edu-guindaLight text-white px-4 py-2 rounded-full transition-all text-[11px] font-bold shadow-sm flex items-center gap-1.5">
                         <i class="fa-solid fa-mobile-screen-button"></i> Instalar App
                     </button>
                 </div>
 
                 <!-- Botón de Menú Móvil (Hamburguesa) -->
                 <div class="lg:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-cecyte-guinda focus:outline-none p-2 rounded-lg transition-colors">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-edu-guinda focus:outline-none p-2 rounded-lg transition-colors">
                         <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
                     </button>
                 </div>
@@ -103,20 +118,14 @@
 
         <!-- Menú Desplegable Móvil -->
         <div id="mobile-dropdown" class="hidden lg:hidden bg-white border-t border-slate-200 shadow-inner px-6 py-4 space-y-3">
-            <a href="/index.html" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
-                <i class="fa-solid fa-house text-cecyte-guinda"></i> Principal
+            <a href="index.html" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
+                <i class="fa-solid fa-house text-edu-guinda"></i> Principal
             </a>
-            <a href="/index.html#Práctica Docente y Evaluación" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
-                <i class="fa-solid fa-chalkboard-user text-cecyte-guinda"></i> Evaluación y Práctica
-            </a>
-           <a href="/index.html#prospectiva" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
-                <i class="fa-solid fa-compass-drafting text-cecyte-guinda"></i> Prospectiva Curricular
-            </a>
-            <a href="/index.html#Indicadores y Gestión Estratégica" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
-                <i class="fa-solid fa-chart-pie text-cecyte-guinda"></i> Gestión Estratégica
+            <a href="index.html#Práctica Docente y Evaluación" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
+                <i class="fa-solid fa-chalkboard-user text-edu-guinda"></i> Evaluación y Práctica
             </a>
             <div class="border-t border-slate-100 pt-3">
-                <button id="btn-mobile-install" class="w-full bg-cecyte-guinda hover:bg-cecyte-guindaLight text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
+                <button id="btn-mobile-install" class="w-full bg-edu-guinda hover:bg-edu-guindaLight text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
                     <i class="fa-solid fa-mobile-screen-button"></i> Instalar Plataforma PWA
                 </button>
             </div>
@@ -124,33 +133,33 @@
     </nav>
 
     <!-- Encabezado Principal / Hero Banner -->
-    <header class="bg-cecyte-guinda text-white shadow-md relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-40 h-40 bg-cecyte-oro opacity-10 rounded-full transform translate-x-12 -translate-y-12"></div>
+    <header class="bg-edu-guinda text-white shadow-md relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-40 h-40 bg-edu-oro opacity-10 rounded-full transform translate-x-12 -translate-y-12"></div>
         
         <div class="container mx-auto px-6 max-w-screen-2xl py-12 flex flex-col md:flex-row items-center justify-between gap-8">
             <div class="text-center md:text-left">
                 <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
-                    <span class="bg-cecyte-oro text-cecyte-guinda text-[11px] font-bold px-2.5 py-1 rounded uppercase tracking-wider">Plantel Huejotzingo</span>
+                    <span class="bg-edu-oro text-edu-guinda text-[11px] font-bold px-2.5 py-1 rounded uppercase tracking-wider">Institución educativa</span>
                     <span class="text-slate-300 text-sm">| Ecosistema Digital 2026</span>
                 </div>
                 <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Hub de Soluciones Tecnológicas</h1>
-                <p class="text-cecyte-oroLight mt-2 text-base font-light max-w-2xl">
-                    Plataforma tecnológica integral, diseñada específicamente para CECyTE. Este entorno unifica herramientas de análisis y evaluación en un solo Hub interactivo. 
+                <p class="text-edu-oroLight mt-2 text-base font-light max-w-2xl">
+                    Plataforma tecnológica integral, diseñada para apoyar a cualquier docente con herramientas de análisis, evaluación y organización en un solo espacio interactivo.
                 </p>
             </div>
             
             <!-- Perfil del Desarrollador -->
             <div class="flex items-center gap-4 bg-black/20 p-4 rounded-xl backdrop-blur-sm border border-white/10 w-full md:w-auto">
-                <div class="bg-cecyte-oro/10 border border-cecyte-oro text-cecyte-oro w-14 h-14 rounded-full flex items-center justify-center text-2xl shrink-0">
+                <div class="bg-edu-oro/10 border border-edu-oro text-edu-oro w-14 h-14 rounded-full flex items-center justify-center text-2xl shrink-0">
                     <img src="julianprofile.png" alt="Perfil de Julian Sadak Vergara Cruz" class="w-full h-full object-cover rounded-full">
                 </div>
                 <div>
                     <h4 class="font-bold text-md text-white">Mtro. Julian Sadak Vergara Cruz</h4>
-                    <p class="text-sm text-cecyte-oro">Desarrollo e Innovación Educativa</p>
-                    <p class="text-xs text-slate-300"><a href="mailto:jvergarac@cecytepuebla.edu.mx" class="text-white hover:text-cecyte-oroLight underline">jvergarac@cecytepuebla.edu.mx</a></p>
+                    <p class="text-sm text-edu-oro">Desarrollo e Innovación Educativa</p>
+                    <p class="text-xs text-slate-300"><a href="mailto:juliansadak@iniciodigital.net" class="text-white hover:text-edu-oroLight underline">juliansadak@iniciodigital.net</a></p>
                     <div class="mt-1 flex gap-2">
-                        <span class="text-[10px] bg-cecyte-oro/20 text-white px-1.5 py-0.5 rounded font-mono font-semibold">PWA Activa</span>
-                        <span class="text-[10px] bg-cecyte-oro/20 text-white px-1.5 py-0.5 rounded font-mono font-semibold">Vanilla JS</span>
+                        <span class="text-[10px] bg-edu-oro/20 text-white px-1.5 py-0.5 rounded font-mono font-semibold">PWA Activa</span>
+                        <span class="text-[10px] bg-edu-oro/20 text-white px-1.5 py-0.5 rounded font-mono font-semibold">Vanilla JS</span>
                     </div>
                 </div>
             </div>
@@ -161,17 +170,17 @@
     <main class="container mx-auto px-6 max-w-screen-2xl py-10 flex-grow">
         
         <!-- Alerta Dinámica de Instalación PWA -->
-        <div id="pwa-install-card" class="hidden bg-gradient-to-r from-cecyte-guinda to-cecyte-guindaLight text-white rounded-2xl p-5 shadow-md border border-cecyte-oro/20 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 transition-all duration-500">
+        <div id="pwa-install-card" class="hidden bg-gradient-to-r from-edu-guinda to-edu-guindaLight text-white rounded-2xl p-5 shadow-md border border-edu-oro/20 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 transition-all duration-500">
             <div class="flex items-center gap-4 text-center sm:text-left">
-                <div class="w-12 h-12 bg-cecyte-oro/20 text-cecyte-oro rounded-xl flex items-center justify-center text-xl shrink-0 mx-auto">
+                <div class="w-12 h-12 bg-edu-oro/20 text-edu-oro rounded-xl flex items-center justify-center text-xl shrink-0 mx-auto">
                     <i class="fa-solid fa-mobile-screen-button"></i>
                 </div>
                 <div>
-                    <h3 class="font-bold text-cecyte-oro text-base">¿Deseas instalar esta plataforma como una App?</h3>
+                    <h3 class="font-bold text-edu-oro text-base">¿Deseas instalar esta plataforma como una App?</h3>
                     <p class="text-xs text-slate-200">Accede de forma directa a todos los simuladores e indicadores, incluso de manera semi-offline.</p>
                 </div>
             </div>
-            <button id="btn-pwa-install" class="bg-cecyte-oro hover:bg-cecyte-oroLight text-cecyte-guinda font-bold text-xs py-2.5 px-5 rounded-xl transition-colors shadow-sm shrink-0 flex items-center gap-2 w-full sm:w-auto justify-center">
+            <button id="btn-pwa-install" class="bg-edu-oro hover:bg-edu-oroLight text-edu-guinda font-bold text-xs py-2.5 px-5 rounded-xl transition-colors shadow-sm shrink-0 flex items-center gap-2 w-full sm:w-auto justify-center">
                 <i class="fa-solid fa-download"></i> Instalar Aplicación
             </button>
         </div>
@@ -179,7 +188,7 @@
         <!-- ================= CATEGORÍA 1 ================= -->
         <section id="Práctica Docente y Evaluación" class="mb-6 scroll-mt-20">
             <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-3">
-                <div class="w-8 h-8 bg-cecyte-guinda text-white rounded-lg flex items-center justify-center text-sm shadow-sm">
+                <div class="w-8 h-8 bg-edu-guinda text-white rounded-lg flex items-center justify-center text-sm shadow-sm">
                     <i class="fa-solid fa-chalkboard-user"></i>
                 </div>
                 <div>
@@ -188,61 +197,17 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Card 1: Aprendamos en Cecyte -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-cecyte-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
-                    <div class="p-6 flex-grow">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="w-11 h-11 bg-slate-100 text-cecyte-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-cecyte-guinda group-hover:text-white transition-all duration-300">
-                                <i class="fa-solid fa-person-chalkboard"></i>
-                            </div>
-                            <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold px-2 py-0.5 rounded">Uso en línea</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 mb-1">Aprendamos en Cecyte (LMS)</h3>
-                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-                            Espacio Virtual de Aprendizaje diseñado para transformar y potenciar tu formación académica o profesional. Estructurado específicamente para que el aprendizaje se adapte a tu propio ritmo, eliminando cualquier barrera geográfica.
-                        </p>
-                    </div>
-                    <div class="p-4 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <span class="text-xs font-mono text-cecyte-guinda"><i class="fa-regular fa-solid fa-globe mr-1 text-cecyte-guinda"></i>moodle</span>
-                        <a href="https://aprendamos.iniciodigital.net" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-cecyte-guinda hover:text-cecyte-guindaLight">
-                            Abrir Herramienta <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </a>
-                    </div>
-                </div>
-
- 
-                <!-- Card 2: Dolibarr CRM | ERP -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-cecyte-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
-                    <div class="p-6 flex-grow">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="w-11 h-11 bg-slate-100 text-cecyte-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-cecyte-guinda group-hover:text-white transition-all duration-300">
-                                <i class="fa-solid fa-truck-arrow-right"></i>
-                            </div>
-                            <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold px-2 py-0.5 rounded">Uso en línea</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 mb-1">Dolibarr CRM | ERP </h3>
-                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-                            Simulador Logístico, cierra la brecha entre la teoría logística y la práctica tecnológica, preparando a los estudiantes para enfrentarse a los sistemas de gestión (ERP) que encontrarán en el mercado laboral real.
-                        </p>
-                    </div>
-                    <div class="p-4 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <span class="text-xs font-mono text-cecyte-guinda"><i class="fa-regular fa-solid fa-globe mr-1"></i>dolibarr</span>
-                        <a href="https://demo.iniciodigital.net/htdocs/" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-bold text-cecyte-guinda hover:text-cecyte-guindaLight">
-                            Abrir Herramienta <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </a>
-                    </div>
-                </div>
+        <section id="Práctica Docente y Evaluación" class="mb-6 scroll-mt-20">
         </section>
 
         
         <section id="Práctica Docente y Evaluación" class="mb-6 scroll-mt-20">
-            <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <!-- Card 3: Herramienta para Docente -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-cecyte-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-edu-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
                     <div class="p-6 flex-grow">
                         <div class="flex justify-between items-start mb-4">
-                            <div class="w-11 h-11 bg-slate-100 text-cecyte-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-cecyte-guinda group-hover:text-white transition-all duration-300">
+                            <div class="w-11 h-11 bg-slate-100 text-edu-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-edu-guinda group-hover:text-white transition-all duration-300">
                                 <i class="fa-solid fa-list-check"></i>
                             </div>
                             <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold px-2 py-0.5 rounded">Uso en Aula</span>
@@ -253,17 +218,17 @@
                         </p>
                     </div>
                     <div class="p-4 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <span class="text-xs font-mono text-cecyte-guinda"><i class="fa-regular fa-file-code mr-1"></i>rúbricas...</span>
-                        <a href="cecyte/eval/plantilla_rubrica.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-cecyte-guinda hover:text-cecyte-guindaLight">
+                        <span class="text-xs font-mono text-edu-guinda"><i class="fa-regular fa-file-code mr-1"></i>rúbricas...</span>
+                        <a href="eval/plantilla_rubrica.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-edu-guinda hover:text-edu-guindaLight">
                             Abrir Herramienta <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
                     </div>
                 </div>
                  <!-- Card 4:  Escala Estimativa -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-cecyte-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-edu-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
                     <div class="p-6 flex-grow">
                         <div class="flex justify-between items-start mb-4">
-                            <div class="w-11 h-11 bg-slate-100 text-cecyte-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-cecyte-guinda group-hover:text-white transition-all duration-300">
+                            <div class="w-11 h-11 bg-slate-100 text-edu-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-edu-guinda group-hover:text-white transition-all duration-300">
                                 <i class="fa-solid fa-list-check"></i>
                             </div>
                             <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold px-2 py-0.5 rounded">Uso en Aula</span>
@@ -274,8 +239,8 @@
                         </p>
                     </div>
                     <div class="p-4 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <span class="text-xs font-mono text-cecyte-guinda"><i class="fa-regular fa-file-code mr-1"></i>estimativa...</span>
-                        <a href="cecyte/eval/plantilla_estimativa.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-cecyte-guinda hover:text-cecyte-guindaLight">
+                        <span class="text-xs font-mono text-edu-guinda"><i class="fa-regular fa-file-code mr-1"></i>estimativa...</span>
+                        <a href="eval/plantilla_estimativa.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-edu-guinda hover:text-edu-guindaLight">
                             Abrir Herramienta <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
                     </div>
@@ -283,10 +248,10 @@
    
            
                 <!-- Card 3: Herramienta para Docente -->
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-cecyte-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-edu-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
                 <div class="p-6 flex-grow">
                     <div class="flex justify-between items-start mb-4">
-                            <div class="w-11 h-11 bg-slate-100 text-cecyte-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-cecyte-guinda group-hover:text-white transition-all duration-300">
+                            <div class="w-11 h-11 bg-slate-100 text-edu-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-edu-guinda group-hover:text-white transition-all duration-300">
                                 <i class="fa-solid fa-list-check"></i>
                             </div>
                             <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold px-2 py-0.5 rounded">Uso en Aula</span>
@@ -297,17 +262,17 @@
                         </p>
                     </div>
                     <div class="p-4 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <span class="text-xs font-mono text-cecyte-guinda"><i class="fa-regular fa-file-code mr-1"></i>observación...</span>
-                        <a href="cecyte/eval/plantilla_observacion.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-cecyte-guinda hover:text-cecyte-guindaLight">
+                        <span class="text-xs font-mono text-edu-guinda"><i class="fa-regular fa-file-code mr-1"></i>observación...</span>
+                        <a href="eval/plantilla_observacion.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-edu-guinda hover:text-edu-guindaLight">
                             Abrir Herramienta <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
                     </div>
                 </div>
                  <!-- Card 4:  Escala Estimativa -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-cecyte-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-edu-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
                     <div class="p-6 flex-grow">
                         <div class="flex justify-between items-start mb-4">
-                            <div class="w-11 h-11 bg-slate-100 text-cecyte-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-cecyte-guinda group-hover:text-white transition-all duration-300">
+                            <div class="w-11 h-11 bg-slate-100 text-edu-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-edu-guinda group-hover:text-white transition-all duration-300">
                                 <i class="fa-solid fa-list-check"></i>
                             </div>
                             <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold px-2 py-0.5 rounded">Uso en Aula</span>
@@ -318,136 +283,18 @@
                         </p>
                     </div>
                     <div class="p-4 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <span class="text-xs font-mono text-cecyte-guinda"><i class="fa-regular fa-file-code mr-1"></i>cotejo...</span>
-                        <a href="cecyte/eval/plantilla_cotejo.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-cecyte-guinda hover:text-cecyte-guindaLight">
+                        <span class="text-xs font-mono text-edu-guinda"><i class="fa-regular fa-file-code mr-1"></i>cotejo...</span>
+                        <a href="eval/plantilla_cotejo.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-edu-guinda hover:text-edu-guindaLight">
                             Abrir Herramienta <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
                     </div>
                 </div>
-        </section>
-
-        <!-- ================= CATEGORÍA 2 ================= -->
-        <section id="prospectiva" class="mb-12 scroll-mt-20">
-            <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-3">
-                <div class="w-8 h-8 bg-cecyte-guinda text-white rounded-lg flex items-center justify-center text-sm shadow-sm">
-                    <i class="fa-solid fa-compass-drafting"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl font-bold text-slate-900 tracking-tight">Prospectiva Curricular e Infraestructura</h2>
-                    <p class="text-xs text-slate-500">Modelos de pertinencia económica, nearshoring y viabilidad tecnológica para toma de decisiones</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Card 5: Planeación Curricular -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-cecyte-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
-                    <div class="p-6 flex-grow">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="w-11 h-11 bg-slate-100 text-cecyte-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-cecyte-guinda group-hover:text-white transition-all duration-300">
-                                <i class="fa-solid fa-graduation-cap"></i>
-                            </div>
-                            <span class="bg-blue-50 text-blue-700 border border-blue-100 text-[10px] font-semibold px-2 py-0.5 rounded">Oferta Educativa</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 mb-1">Simulador de Idoneidad Curricular</h3>
-                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-                            Matriz comparativa ponderada para analizar las carreras técnicas (Logística, PGEA y Comercio Internacional) frente a la demanda laboral del entorno.
-                        </p>
-                    </div>
-                    <div class="p-4 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <span class="text-xs font-mono text-cecyte-guinda"><i class="fa-regular fa-file-code mr-1"></i>comparativa</span>
-                        <a href="comparativa.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-cecyte-guinda hover:text-cecyte-guindaLight">
-                            Abrir Herramienta <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 6: Comparativa LMS -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-cecyte-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
-                    <div class="p-6 flex-grow">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="w-11 h-11 bg-slate-100 text-cecyte-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-cecyte-guinda group-hover:text-white transition-all duration-300">
-                                <i class="fa-solid fa-laptop-code"></i>
-                            </div>
-                            <span class="bg-blue-50 text-blue-700 border border-blue-100 text-[10px] font-semibold px-2 py-0.5 rounded">Infraestructura</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 mb-1">Evaluador: LMS (Moodle) vs Desarrollo Propio</h3>
-                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-                            Simulador financiero y analítico de despliegue para contrastar costos de servidores, soporte y viabilidad frente a desarrollos a la medida.
-                        </p>
-                    </div>
-                    <div class="p-4 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <span class="text-xs font-mono text-cecyte-guinda"><i class="fa-regular fa-file-code mr-1"></i>lms_vs</span>
-                        <a href="cecyte/lms.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-cecyte-guinda hover:text-cecyte-guindaLight">
-                            Abrir Herramienta <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= CATEGORÍA 3 ================= -->
-        <section id="Indicadores y Gestión Estratégica" class="mb-12 scroll-mt-20">
-            <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-3">
-                <div class="w-8 h-8 bg-cecyte-guinda text-white rounded-lg flex items-center justify-center text-sm shadow-sm">
-                    <i class="fa-solid fa-chart-pie"></i>
-                </div>
-                <div>
-                    <h2 class="text-xl font-bold text-slate-900 tracking-tight">Indicadores y Gestión Estratégica</h2>
-                    <p class="text-xs text-slate-500">Monitoreo macroinstitucional, resiliencia y métricas de inclusión nacional</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Card 7: Panel de Indicadores -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-cecyte-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
-                    <div class="p-6 flex-grow">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="w-11 h-11 bg-slate-100 text-cecyte-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-cecyte-guinda group-hover:text-white transition-all duration-300">
-                                <i class="fa-solid fa-sliders"></i>
-                            </div>
-                            <span class="bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-semibold px-2 py-0.5 rounded">Ponderado</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 mb-1">Presentación de Indicadores RADI</h3>
-                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-                            Módulo de simulación de variables complejas para la obtención del Índice de Innovación Evaluativa (TDEDE) y el Índice de Flexibilidad (IFID).
-                        </p>
-                    </div>
-                    <div class="p-4 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <span class="text-xs font-mono text-cecyte-guinda"><i class="fa-regular fa-file-code mr-1"></i>indicadores</span>
-                        <a href="indicadores.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-cecyte-guinda hover:text-cecyte-guindaLight">
-                            Abrir Herramienta <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 8: RADI -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-cecyte-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
-                    <div class="p-6 flex-grow">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="w-11 h-11 bg-slate-100 text-cecyte-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-cecyte-guinda group-hover:text-white transition-all duration-300">
-                                <i class="fa-solid fa-chart-line"></i>
-                            </div>
-                            <span class="bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-semibold px-2 py-0.5 rounded">Nivel Macro</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 mb-1">Ficha Operativa RADI</h3>
-                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-                            La <b>R</b>adiografía de <b>A</b>prendizaje <b>D</b>igital e <b>I</b>nclusivo. Diseñado estratégicamente para comprender la realidad actual, la modernización de la evaluación, la atención a la diversidad estudiantil y vocaciones productivas.
-                        </p>
-                    </div>
-                    <div class="p-4 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <span class="text-xs font-mono text-cecyte-guinda"><i class="fa-regular fa-file-code mr-1"></i>radi</span>
-                        <a href="radi.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-cecyte-guinda hover:text-cecyte-guindaLight">
-                            Abrir Herramienta <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
         </section>
 
                 <!-- ================= CATEGORÍA 4 ================= -->
         <section id="Privacidad" class="mb-6 scroll-mt-20">
             <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-3">
-                <div class="w-8 h-8 bg-cecyte-guinda text-white rounded-lg flex items-center justify-center text-sm shadow-sm">
+                <div class="w-8 h-8 bg-edu-guinda text-white rounded-lg flex items-center justify-center text-sm shadow-sm">
                     <i class="fa-solid fa-lock"></i>
                 </div>
                 <div>
@@ -474,16 +321,18 @@
 
 
     <!-- Pie de Página Institucional -->
-    <footer class="bg-cecyte-guinda rounded-2xl text-slate-400 border-t border-slate-800 text-xs py-6">
+    <footer class="bg-edu-guinda rounded-2xl text-slate-400 border-t border-slate-800 text-xs py-6">
         <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="text-center md:text-left">
-                <p class="font-bold text-slate-200">CECYTE Puebla — Desarrollos de Software 2026</p>
-                <p class="text-cecyte-oroLight mt-0.5">Todos los derechos de cálculo y lógicas operativas reservados del autor.</p>
+                <p class="font-bold text-slate-200">Creative Commons Zero v1.0 Universal</p>
+                <p class="text-edu-oroLight mt-0.5">Este proyecto se comparte de forma abierta y libre para uso público, sin restricciones de derechos de autor.</p>
             </div>
-            <div class="flex gap-4 text-cecyte-oroLight font-mono">
+            <div class="flex flex-col md:flex-row items-center gap-2 text-edu-oroLight font-mono text-center">
                 <span>Julian Sadak Vergara Cruz</span>
-                <span>|</span>
-                <span>Tailwind CSS</span>
+                <span class="hidden md:inline">|</span>
+                <a href="https://github.com/juliansadak/docencia" target="_blank" rel="noopener noreferrer" class="hover:text-white underline decoration-edu-oro underline-offset-2">
+                    github.com/juliansadak/docencia
+                </a>
             </div>
         </div>
     </footer>

@@ -1,7 +1,7 @@
 {
-  "name": "Portal de Soluciones e Indicadores CECYTE",
-  "short_name": "CECYTE App",
-  "description": "Plataforma de portafolio y herramientas de simulación e indicadores analíticos del plantel.",
+  "name": "Portal de Soluciones e Indicadores Educativos",
+  "short_name": "Portal Educativo",
+  "description": "Plataforma de portafolio y herramientas de simulación e indicadores analíticos para docentes.",
   "id": "/",
   "start_url": "/",
   "scope": "/",
@@ -11,13 +11,13 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "logo.png",
+      "src": "julianprofile.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "logo.png",
+      "src": "julianprofile.png",
       "sizes": "512x512",
       "type": "image/png"
     }
