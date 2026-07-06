@@ -1,9 +1,10 @@
 (function () {
-  // Obtener la URL base del sitio
-  const baseUrl = window.location.origin + '/';
-  const manifestUrl = baseUrl + 'manifest.json';
-  const serviceWorkerUrl = baseUrl + 'service-worker.js';
-  const iconUrl = baseUrl + 'logo.png';
+  // Resolver la base real del sitio usando la ruta del script actual.
+  const currentScript = document.currentScript;
+  const baseUrl = currentScript ? new URL('./', currentScript.src).href : new URL('./', window.location.href).href;
+  const manifestUrl = new URL('manifest.json', baseUrl).href;
+  const serviceWorkerUrl = new URL('service-worker.js', baseUrl).href;
+  const iconUrl = new URL('EDU_logo.png', baseUrl).href;
 
   const manifestLink = document.querySelector('link[rel="manifest"]');
   if (manifestLink) {

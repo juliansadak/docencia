@@ -67,7 +67,8 @@
     <meta name="theme-color" content="#2563EB">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="#651C32">
-    <link rel="apple-touch-icon" href="julianprofile.png">
+    <link rel="icon" type="image/png" href="EDU_logo.png">
+    <link rel="apple-touch-icon" href="EDU_logo.png">
 
     <style>
         :root {
@@ -103,10 +104,12 @@
                 <div class="flex items-center gap-3">
                     <div class="flex items-center gap-3">
                         <div class="w-16 h-16 sm:w-20 sm:h-20 p-1.5 flex items-center justify-center">
-                            <img src="EDU_logo.png" alt="Logo EDULIBRE" class="w-full h-full object-contain" loading="eager" decoding="async">
+                            <img src="/EDU_logo.png" alt="Logo EDULIBRE" class="w-full h-full object-contain" loading="eager" decoding="async">
                         </div>
                         <div>
-                            <span class="font-montserrat font-extrabold text-lg sm:text-2xl tracking-wide text-edu-guinda block leading-none">EDULIBRE</span>
+                            <span class="font-montserrat font-extrabold text-lg sm:text-2xl tracking-wide block leading-none">
+                            <span class="text-edu-guinda" >EDU</span><span class="text-edu-oro">LIBRE</span>
+                            </span>
                             <span class="hidden sm:block text-[11px] sm:text-xs font-sans font-bold text-emerald-600 uppercase tracking-wide mt-1">Simplificando la docencia, liberando tu tiempo</span>
                         </div>
                     </div>
@@ -117,9 +120,26 @@
                     <a href="index.html" class="text-slate-600 hover:text-edu-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
                         <i class="fa-solid fa-house"></i> Principal
                     </a>
-                    <a href="index.html#Práctica Docente y Evaluación" class="text-slate-600 hover:text-edu-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
-                        <i class="fa-solid fa-chalkboard-user"></i> Evaluación y Práctica
-                    </a>
+                    <div class="relative group">
+                        <button type="button" class="text-slate-600 hover:text-edu-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
+                            <i class="fa-solid fa-chalkboard-user"></i> Evaluación y Práctica
+                            <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                        </button>
+                        <div class="absolute left-0 top-full mt-1 w-72 bg-white border border-slate-200 rounded-xl shadow-lg p-2 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-150 z-50 normal-case tracking-normal">
+                            <a href="eval/plantilla_rubrica.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-slate-50 hover:text-edu-guinda transition-colors">
+                                <i class="fa-solid fa-sliders text-edu-guinda"></i> Creador: Rúbrica
+                            </a>
+                            <a href="eval/plantilla_estimativa.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-slate-50 hover:text-edu-guinda transition-colors">
+                                <i class="fa-solid fa-arrow-up-9-1 text-edu-guinda"></i> Creador: Escala Estimativa
+                            </a>
+                            <a href="eval/plantilla_observacion.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-slate-50 hover:text-edu-guinda transition-colors">
+                                <i class="fa-solid fa-eye text-edu-guinda"></i> Creador: Guía de Observación
+                            </a>
+                            <a href="eval/plantilla_cotejo.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-slate-50 hover:text-edu-guinda transition-colors">
+                                <i class="fa-solid fa-list-check text-edu-guinda"></i> Creador: Lista de Cotejo
+                            </a>
+                        </div>
+                    </div>
                     <span class="h-6 w-px bg-slate-200 mx-2"></span>
                     <button id="btn-header-install" class="bg-edu-guinda hover:bg-edu-guindaLight text-white px-4 py-2 rounded-full transition-all text-[11px] font-bold shadow-sm flex items-center gap-1.5">
                         <i class="fa-solid fa-mobile-screen-button"></i> Instalar App
@@ -143,6 +163,21 @@
             <a href="index.html#Práctica Docente y Evaluación" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
                 <i class="fa-solid fa-chalkboard-user text-edu-guinda"></i> Evaluación y Práctica
             </a>
+            <div class="border-t border-slate-100 pt-3">
+                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-3 mb-2">Evaluación y Práctica</p>
+                <a href="eval/plantilla_rubrica.html" onclick="toggleMenu()" class="block py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
+                    <i class="fa-solid fa-sliders text-edu-guinda"></i> Creador: Rúbrica
+                </a>
+                <a href="eval/plantilla_estimativa.html" onclick="toggleMenu()" class="block py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
+                    <i class="fa-solid fa-arrow-up-9-1 text-edu-guinda"></i> Creador: Escala Estimativa
+                </a>
+                <a href="eval/plantilla_observacion.html" onclick="toggleMenu()" class="block py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
+                    <i class="fa-solid fa-eye text-edu-guinda"></i> Creador: Guía de Observación
+                </a>
+                <a href="eval/plantilla_cotejo.html" onclick="toggleMenu()" class="block py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
+                    <i class="fa-solid fa-list-check text-edu-guinda"></i> Creador: Lista de Cotejo
+                </a>
+            </div>
             <div class="border-t border-slate-100 pt-3">
                 <button id="btn-mobile-install" class="w-full bg-edu-guinda hover:bg-edu-guindaLight text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
                     <i class="fa-solid fa-mobile-screen-button"></i> Instalar Plataforma PWA
@@ -352,12 +387,12 @@
         </section>
     </main>
 
-    <!-- Pie de Página Institucional -->
+    <!-- Pie de Página -->
     <footer class="bg-edu-guinda rounded-t-2xl text-slate-200 border-t border-slate-800 text-xs py-8">
         <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="text-center md:text-left max-w-lg">
                 <p class="font-bold text-slate-100 text-sm mb-1">Licencia Abierta: Creative Commons Zero v1.0 Universal</p>
-                <p class="text-edu-oroLight leading-relaxed">Este proyecto y sus códigos se comparten de forma pública, abierta y completamente gratuita para uso público general, sin ninguna barrera de derechos de autor.</p>
+                <p class="text-edu-oroLight leading-relaxed">Este ecosistema está protegido bajo la licencia Creative Commons de Dominio Público. Eres libre de copiar, modificar, distribuir y ejecutar este software y sus plantillas, incluso con fines comerciales, sin necesidad de solicitar permiso ni dar atribuciones. Creemos en una educación libre y sin candados.</p>
             </div>
             <div class="flex flex-col md:flex-row items-center gap-3 text-edu-oroLight font-mono text-center">
                 <span class="text-slate-300">Desarrollado por Julian Sadak Vergara Cruz</span>
