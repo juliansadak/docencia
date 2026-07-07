@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <script>
@@ -34,12 +34,13 @@
                 extend: {
                     fontFamily: {
                         sans: ['Open Sans', 'sans-serif'],
-                        montserrat: ['Montserrat', 'sans-serif'],
+                        Inter: ['Inter', 'sans-serif'],
                     },
                     colors: {
                         primary: '#2563EB',
                         secondary: '#1E40AF',
                         accent: '#10B981',
+                        accentLight: '#A7F3D0',
                         fondo: '#F8FAFC',
                         tarjetas: '#FFFFFF',
                         'text-primary': '#1F2937',
@@ -49,14 +50,6 @@
                         guinda: '#2563EB',
                         'guinda-light': '#1E40AF',
                         ocre: '#10B981',
-                        edu: {
-                            guinda: '#2563EB',
-                            guindaLight: '#1E40AF',
-                            oro: '#10B981',
-                            oroLight: '#A7F3D0',
-                            grisBg: '#F8FAFC',
-                            lila: 'rgba(37, 99, 235, 0.08)',
-                        }
                     }
                 }
             }
@@ -82,8 +75,8 @@
             --color-error: #EF4444;
             --color-warning: #F59E0B;
         }
-        body { font-family: 'Open Sans', sans-serif; background-color: var(--color-bg); color: var(--color-text); }
-        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--color-bg); color: var(--color-text); }
+        h1, h2, h3, h4 { font-family: 'Inter', sans-serif; }
         [id="Práctica Docente y Evaluación"] .group:hover { background-color: rgba(37, 99, 235, 0.08) }
         [id="Práctica Docente y Evaluación"] .group:hover .bg-slate-50 { background-color: rgba(16, 185, 129, 0.18); }
         [id="prospectiva"] .group:hover { background-color: rgba(16, 185, 129, 0.10) }
@@ -108,7 +101,7 @@
                         </div>
                         <div>
                             <span class="font-montserrat font-extrabold text-lg sm:text-2xl tracking-wide block leading-none">
-                            <span class="text-edu-guinda" >EDU</span><span class="text-edu-oro">LIBRE</span>
+                            <span class="text-primary" >EDU</span><span class="text-accent">LIBRE</span><span class="text-slate-600 text-sm"> 1.0.0</span>
                             </span>
                             <span class="hidden sm:block text-[11px] sm:text-xs font-sans font-bold text-emerald-600 uppercase tracking-wide mt-1">Simplificando la docencia, liberando tu tiempo.</span>
                         </div>
@@ -117,38 +110,38 @@
 
                 <!-- Enlaces de Escritorio -->
                 <div class="hidden lg:flex items-center space-x-1 font-semibold text-xs uppercase tracking-wider">
-                    <a href="index.html" class="text-slate-600 hover:text-edu-guinda hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
+                    <a href="index.html" class="text-slate-600 hover:text-primary hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
                         <i class="fa-solid fa-house"></i> Principal
                     </a>
                     <div class="relative group">
-                        <button type="button" class="text-slate-600 hover:text-edu-guinda text-xs uppercase hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
+                        <button type="button" class="text-slate-600 hover:text-primary text-xs uppercase hover:bg-slate-50 px-3.5 py-2 rounded-lg transition-all duration-150 flex items-center gap-2">
                             <i class="fa-solid fa-chalkboard-user"></i> Evaluación y Práctica
                             <i class="fa-solid fa-chevron-down text-[10px]"></i>
                         </button>
                         <div class="absolute left-0 top-full mt-1 w-72 bg-white border border-slate-200 rounded-xl shadow-lg p-2 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-150 z-50 normal-case tracking-normal">
-                            <a href="eval/plantilla_rubrica.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-slate-50 hover:text-edu-guinda transition-colors">
-                                <i class="fa-solid fa-sliders text-edu-guinda"></i> Creador: Rúbrica
+                            <a href="eval/plantilla_rubrica.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-slate-50 hover:text-primary transition-colors">
+                                <i class="fa-solid fa-sliders text-primary"></i> Creador: Rúbrica
                             </a>
-                            <a href="eval/plantilla_estimativa.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-slate-50 hover:text-edu-guinda transition-colors">
-                                <i class="fa-solid fa-arrow-up-9-1 text-edu-guinda"></i> Creador: Escala Estimativa
+                            <a href="eval/plantilla_estimativa.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-slate-50 hover:text-primary transition-colors">
+                                <i class="fa-solid fa-arrow-up-9-1 text-primary"></i> Creador: Escala Estimativa
                             </a>
-                            <a href="eval/plantilla_observacion.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-slate-50 hover:text-edu-guinda transition-colors">
-                                <i class="fa-solid fa-eye text-edu-guinda"></i> Creador: Guía de Observación
+                            <a href="eval/plantilla_observacion.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-slate-50 hover:text-primary transition-colors">
+                                <i class="fa-solid fa-eye text-primary"></i> Creador: Guía de Observación
                             </a>
-                            <a href="eval/plantilla_cotejo.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-slate-50 hover:text-edu-guinda transition-colors">
-                                <i class="fa-solid fa-list-check text-edu-guinda"></i> Creador: Lista de Cotejo
+                            <a href="eval/plantilla_cotejo.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-slate-50 hover:text-primary transition-colors">
+                                <i class="fa-solid fa-list-check text-primary"></i> Creador: Lista de Cotejo
                             </a>
                         </div>
                     </div>
                     <span class="h-6 w-px bg-slate-200 mx-2"></span>
-                    <button id="btn-header-install" class="bg-edu-guinda hover:bg-edu-guindaLight text-white px-4 py-2 rounded-full transition-all text-[11px] font-bold shadow-sm flex items-center gap-1.5">
+                    <button id="btn-header-install" class="bg-primary hover:bg-secundary text-white px-4 py-2 rounded-full transition-all text-[11px] font-bold shadow-sm flex items-center gap-1.5">
                         <i class="fa-solid fa-mobile-screen-button"></i> Instalar App
                     </button>
                 </div>
 
                 <!-- Botón de Menú Móvil (Hamburguesa) -->
                 <div class="lg:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-edu-guinda focus:outline-none p-2 rounded-lg transition-colors">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-primary focus:outline-none p-2 rounded-lg transition-colors">
                         <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
                     </button>
                 </div>
@@ -158,28 +151,28 @@
         <!-- Menú Desplegable Móvil -->
         <div id="mobile-dropdown" class="hidden lg:hidden bg-white border-t border-slate-200 shadow-inner px-6 py-4 space-y-3">
             <a href="index.html" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
-                <i class="fa-solid fa-house text-edu-guinda"></i> Principal
+                <i class="fa-solid fa-house text-primary"></i> Principal
             </a>
             <a href="index.html#Práctica Docente y Evaluación" onclick="toggleMenu()" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
-                <i class="fa-solid fa-chalkboard-user text-edu-guinda"></i> Evaluación y Práctica
+                <i class="fa-solid fa-chalkboard-user text-primary"></i> Evaluación y Práctica
             </a>
             <div class="border-t border-slate-100 pt-3">
                 <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-3 mb-2">Evaluación y Práctica</p>
                 <a href="eval/plantilla_rubrica.html" onclick="toggleMenu()" class="block py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
-                    <i class="fa-solid fa-sliders text-edu-guinda"></i> Creador: Rúbrica
+                    <i class="fa-solid fa-sliders text-primary"></i> Creador: Rúbrica
                 </a>
                 <a href="eval/plantilla_estimativa.html" onclick="toggleMenu()" class="block py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
-                    <i class="fa-solid fa-arrow-up-9-1 text-edu-guinda"></i> Creador: Escala Estimativa
+                    <i class="fa-solid fa-arrow-up-9-1 text-primary"></i> Creador: Escala Estimativa
                 </a>
                 <a href="eval/plantilla_observacion.html" onclick="toggleMenu()" class="block py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
-                    <i class="fa-solid fa-eye text-edu-guinda"></i> Creador: Guía de Observación
+                    <i class="fa-solid fa-eye text-primary"></i> Creador: Guía de Observación
                 </a>
                 <a href="eval/plantilla_cotejo.html" onclick="toggleMenu()" class="block py-2 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors flex items-center gap-3">
-                    <i class="fa-solid fa-list-check text-edu-guinda"></i> Creador: Lista de Cotejo
+                    <i class="fa-solid fa-list-check text-primary"></i> Creador: Lista de Cotejo
                 </a>
             </div>
             <div class="border-t border-slate-100 pt-3">
-                <button id="btn-mobile-install" class="w-full bg-edu-guinda hover:bg-edu-guindaLight text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
+                <button id="btn-mobile-install" class="w-full bg-primary hover:bg-secundary text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
                     <i class="fa-solid fa-mobile-screen-button"></i> Instalar Plataforma PWA
                 </button>
             </div>
@@ -187,14 +180,14 @@
     </nav>
 
     <!-- Encabezado Principal / Hero Banner -->
-    <header class="bg-edu-guinda text-white shadow-md relative overflow-hidden">
+    <header class="bg-primary text-white shadow-md relative overflow-hidden">
         <div class="absolute top-0 right-0 w-40 h-40 bg-edu-oro opacity-10 rounded-full transform translate-x-12 -translate-y-12"></div>
         
         <div class="container mx-auto px-6 max-w-screen-2xl py-12 flex flex-col md:flex-row items-center justify-between gap-8">
             <div class="text-center md:text-left">
                 <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
                     <span class="bg-edu-oro text-white text-[11px] font-bold px-2.5 py-1 rounded uppercase tracking-wider">Ecosistema Abierto</span>
-                    <span class="text-slate-300 text-sm">| Soluciones Prácticas 2026</span>
+                    <span class="text-slate-300 text-sm">| Soluciones Prácticas</span>
                 </div>
                 <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Simplificando la docencia, liberando tu tiempo.</h1>
                 <p class="text-edu-oroLight mt-2 text-base font-light max-w-2xl">
@@ -224,7 +217,7 @@
     <main class="container mx-auto px-6 max-w-screen-2xl py-10 flex-grow">
         
         <!-- Alerta Dinámica de Instalación PWA -->
-        <div id="pwa-install-card" class="hidden bg-gradient-to-r from-edu-guinda to-edu-guindaLight text-white rounded-2xl p-5 shadow-md border border-edu-oro/20 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 transition-all duration-500">
+        <div id="pwa-install-card" class="hidden bg-gradient-to-r from-primary to-secondary text-white rounded-2xl p-5 shadow-md border border-edu-oro/20 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 transition-all duration-500">
             <div class="flex items-center gap-4 text-center sm:text-left">
                 <div class="w-12 h-12 bg-edu-oro/20 text-edu-oro rounded-xl flex items-center justify-center text-xl shrink-0 mx-auto">
                     <i class="fa-solid fa-mobile-screen-button"></i>
@@ -242,7 +235,7 @@
         <!-- ================= CATEGORÍA 1 ================= -->
         <section id="Práctica Docente y Evaluación" class="mb-6 scroll-mt-20">
             <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-3">
-                <div class="w-8 h-8 bg-edu-guinda text-white rounded-lg flex items-center justify-center text-sm shadow-sm">
+                <div class="w-8 h-8 bg-primary text-white rounded-lg flex items-center justify-center text-sm shadow-sm">
                     <i class="fa-solid fa-chalkboard-user"></i>
                 </div>
                 <div>
@@ -256,10 +249,10 @@
         <section id="Herramientas" class="mb-6 scroll-mt-20">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <!-- Card 1: Herramienta para Rúbricas -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-edu-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
                     <div class="p-6 flex-grow">
                         <div class="flex justify-between items-start mb-4">
-                            <div class="w-11 h-11 bg-slate-100 text-edu-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-edu-guinda group-hover:text-white transition-all duration-300">
+                            <div class="w-11 h-11 bg-slate-100 text-primary rounded-xl flex items-center justify-center text-lg group-hover:bg-primary group-hover:text-white transition-all duration-300">
                                 <i class="fa-solid fa-list-check"></i>
                             </div>
                             <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold px-2 py-0.5 rounded">Uso en Aula</span>
@@ -270,17 +263,17 @@
                         </p>
                     </div>
                     <div class="p-4 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <span class="text-xs font-mono text-edu-guinda"><i class="fa-regular fa-file-code mr-1"></i>rúbricas...</span>
-                        <a href="eval/plantilla_rubrica.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-edu-guinda hover:text-edu-guindaLight">
+                        <span class="text-xs font-mono text-primary"><i class="fa-regular fa-file-code mr-1"></i>rúbrica...</span>
+                        <a href="eval/plantilla_rubrica.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-secondary">
                             Abrir Herramienta <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
                     </div>
                 </div>
                  <!-- Card 2: Escala Estimativa -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-edu-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
                     <div class="p-6 flex-grow">
                         <div class="flex justify-between items-start mb-4">
-                            <div class="w-11 h-11 bg-slate-100 text-edu-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-edu-guinda group-hover:text-white transition-all duration-300">
+                            <div class="w-11 h-11 bg-slate-100 text-primary rounded-xl flex items-center justify-center text-lg group-hover:bg-primary group-hover:text-white transition-all duration-300">
                                 <i class="fa-solid fa-list-check"></i>
                             </div>
                             <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold px-2 py-0.5 rounded">Uso en Aula</span>
@@ -291,8 +284,8 @@
                         </p>
                     </div>
                     <div class="p-4 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <span class="text-xs font-mono text-edu-guinda"><i class="fa-regular fa-file-code mr-1"></i>estimativa...</span>
-                        <a href="eval/plantilla_estimativa.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-edu-guinda hover:text-edu-guindaLight">
+                        <span class="text-xs font-mono text-primary"><i class="fa-regular fa-file-code mr-1"></i>estimativa...</span>
+                        <a href="eval/plantilla_estimativa.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-secondary">
                             Abrir Herramienta <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
                     </div>
@@ -300,10 +293,10 @@
    
            
                 <!-- Card 3: Guía de Observación -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-edu-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
                     <div class="p-6 flex-grow">
                         <div class="flex justify-between items-start mb-4">
-                                <div class="w-11 h-11 bg-slate-100 text-edu-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-edu-guinda group-hover:text-white transition-all duration-300">
+                                <div class="w-11 h-11 bg-slate-100 text-primary rounded-xl flex items-center justify-center text-lg group-hover:bg-primary group-hover:text-white transition-all duration-300">
                                     <i class="fa-solid fa-list-check"></i>
                                 </div>
                                 <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold px-2 py-0.5 rounded">Uso en Aula</span>
@@ -314,18 +307,18 @@
                         </p>
                     </div>
                     <div class="p-4 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <span class="text-xs font-mono text-edu-guinda"><i class="fa-regular fa-file-code mr-1"></i>observación...</span>
-                        <a href="eval/plantilla_observacion.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-edu-guinda hover:text-edu-guindaLight">
+                        <span class="text-xs font-mono text-primary"><i class="fa-regular fa-file-code mr-1"></i>observación...</span>
+                        <a href="eval/plantilla_observacion.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-secondary">
                             Abrir Herramienta <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- Card 4: Lista de Cotejo -->
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-edu-guinda/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-primary/30 hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group">
                     <div class="p-6 flex-grow">
                         <div class="flex justify-between items-start mb-4">
-                            <div class="w-11 h-11 bg-slate-100 text-edu-guinda rounded-xl flex items-center justify-center text-lg group-hover:bg-edu-guinda group-hover:text-white transition-all duration-300">
+                            <div class="w-11 h-11 bg-slate-100 text-primary rounded-xl flex items-center justify-center text-lg group-hover:bg-primary group-hover:text-white transition-all duration-300">
                                 <i class="fa-solid fa-list-check"></i>
                             </div>
                             <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold px-2 py-0.5 rounded">Uso en Aula</span>
@@ -336,8 +329,8 @@
                         </p>
                     </div>
                     <div class="p-4 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center">
-                        <span class="text-xs font-mono text-edu-guinda"><i class="fa-regular fa-file-code mr-1"></i>cotejo...</span>
-                        <a href="eval/plantilla_cotejo.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-edu-guinda hover:text-edu-guindaLight">
+                        <span class="text-xs font-mono text-primary"><i class="fa-regular fa-file-code mr-1"></i>cotejo...</span>
+                        <a href="eval/plantilla_cotejo.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-secondary">
                             Abrir Herramienta <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
                     </div>
@@ -348,7 +341,7 @@
         <!-- ================= CATEGORÍA 4 ================= -->
         <section id="Privacidad" class="mb-6 scroll-mt-20">
             <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-3">
-                <div class="w-8 h-8 bg-edu-guinda text-white rounded-lg flex items-center justify-center text-sm shadow-sm">
+                <div class="w-8 h-8 bg-primary text-white rounded-lg flex items-center justify-center text-sm shadow-sm">
                     <i class="fa-solid fa-lock"></i>
                 </div>
                 <div>
@@ -388,15 +381,15 @@
     </main>
 
     <!-- Pie de Página -->
-    <footer class="bg-edu-guinda rounded-t-2xl text-slate-200 border-t border-slate-800 text-xs py-8">
+    <footer class="bg-primary rounded-t-2xl text-slate-200 border-t border-slate-800 text-xs py-8">
         <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="text-center md:text-left max-w-lg">
                 <p class="font-bold text-slate-100 text-sm mb-1">Licencia Abierta: Creative Commons Zero v1.0 Universal</p>
-                <p class="text-edu-oroLight leading-relaxed">Eres libre de copiar, modificar, distribuir y ejecutar este software y sus plantillas, incluso con fines comerciales, sin necesidad de solicitar permiso ni dar atribuciones. Creemos en una educación libre y sin candados.</p>
+                <p class="text-accentLight leading-relaxed">Eres libre de copiar, modificar, distribuir y ejecutar este software y sus plantillas, incluso con fines comerciales, sin necesidad de solicitar permiso ni dar atribuciones. Creemos en una educación libre y sin candados.</p>
             </div>
-            <div class="flex flex-col items-center gap-1 text-edu-oroLight font-mono text-center"> 
+            <div class="flex flex-col items-center gap-1 text-accentLight font-mono text-center"> 
             <span class="text-slate-300">Desarrollado por Julian Sadak Vergara Cruz</span> 
-            <a href="https://github.com/juliansadak/docencia" target="_blank" rel="noopener noreferrer" class="hover:text-white underline decoration-edu-oro underline-offset-4"> 
+            <a href="https://github.com/juliansadak/docencia" target="_blank" rel="noopener noreferrer" class="hover:text-white underline decoration-accentLight underline-offset-4"> 
                 github.com/juliansadak/docencia 
             </a> 
             </div>
