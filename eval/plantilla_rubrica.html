@@ -75,7 +75,44 @@
         .rubric-table thead th { background-color: #f8fafc; }
         .rubric-table tbody td:first-child { background-color: #f8fafc; }
         .score-cell { transition: all 0.2s ease-in-out; }
+        /* === MODO OSCURO === */
+        html.dark { color-scheme: dark; }
+        html.dark body { background-color: #282828; color: #e8eaed; }
+        html.dark nav { background-color: rgba(40,40,40,0.97) !important; border-bottom-color: #5f6368 !important; }
+        html.dark #mobile-dropdown { background-color: #3c3c3c !important; border-color: #5f6368 !important; }
+        html.dark .bg-white { background-color: #3c3c3c !important; }
+        html.dark .bg-slate-50 { background-color: #282828 !important; }
+        html.dark .bg-slate-100 { background-color: #3c3c3c !important; }
+        html.dark .border-slate-200 { border-color: #5f6368 !important; }
+        html.dark .border-slate-100 { border-color: #3c3c3c !important; }
+        html.dark .border-slate-300 { border-color: #5f6368 !important; }
+        html.dark .text-slate-900 { color: #e8eaed !important; }
+        html.dark .text-slate-800 { color: #dadce0 !important; }
+        html.dark .text-slate-700 { color: #bdc1c6 !important; }
+        html.dark .text-slate-600 { color: #9aa0a6 !important; }
+        html.dark .text-slate-500 { color: #80868b !important; }
+        html.dark .text-slate-400 { color: #5f6368 !important; }
+        html.dark .text-slate-300 { color: #9aa0a6 !important; }
+        html.dark .hover\:bg-slate-50:hover { background-color: rgba(255,255,255,0.05) !important; }
+        html.dark .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0,0,0,0.6) !important; }
+        html.dark .shadow-md { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.6) !important; }
+        html.dark .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.6) !important; }
+        html.dark input:not([type="range"]):not([type="checkbox"]),
+        html.dark textarea,
+        html.dark select { background-color: #282828 !important; border-color: #5f6368 !important; color: #e8eaed !important; }
+        html.dark input::placeholder, html.dark textarea::placeholder { color: #5f6368 !important; }
+        html.dark .rubric-table th, html.dark .rubric-table td { border-color: #5f6368 !important; }
+        html.dark .rubric-table thead th, html.dark .rubric-table tbody td:first-child { background-color: #3c3c3c !important; }
+        html.dark .custom-scrollbar::-webkit-scrollbar-track { background: #3c3c3c; }
+        html.dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #5f6368; }
     </style>
+    <script>
+        (function(){
+            var s = localStorage.getItem('edulibre-dark-mode');
+            var p = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (s === '1' || (s === null && p)) document.documentElement.classList.add('dark');
+        })();
+    </script>
 </head>
 
 <body class="bg-fondo text-text-primary min-h-screen flex flex-col pt-24">
@@ -124,6 +161,9 @@
                             </a>
                         </div>
                     </div>
+                    <button id="btn-dark-mode" onclick="toggleDarkMode()" title="Cambiar modo de color" class="text-slate-600 hover:text-edu-guinda hover:bg-slate-50 p-2 rounded-lg transition-all duration-150">
+                        <i class="fa-solid fa-moon" id="dark-mode-icon"></i>
+                    </button>
                     <span class="h-6 w-px bg-slate-200 mx-2"></span>
                     <button id="btn-header-install" class="bg-edu-guinda hover:bg-edu-guindaLight text-white px-4 py-2 rounded-full transition-all text-[11px] font-bold shadow-sm flex items-center gap-1.5">
                         <i class="fa-solid fa-mobile-screen-button"></i> Instalar App
@@ -148,6 +188,10 @@
                 <i class="fa-solid fa-chalkboard-user text-edu-guinda"></i> Evaluación y Práctica
             </a>
             <div class="border-t border-slate-100 pt-3">
+                <button onclick="toggleDarkMode()" class="w-full flex items-center gap-3 mb-2 py-2.5 px-3 rounded-lg text-slate-700 hover:bg-slate-50 font-semibold text-sm transition-colors">
+                    <i class="fa-solid fa-moon text-edu-guinda" id="dark-mode-icon-mobile"></i>
+                    <span id="dark-mode-label">Modo Oscuro</span>
+                </button>
                 <button id="btn-mobile-install" class="w-full bg-edu-guinda hover:bg-edu-guindaLight text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
                     <i class="fa-solid fa-mobile-screen-button"></i> Instalar Plataforma PWA
                 </button>
@@ -155,22 +199,26 @@
         </div>
     </nav>
 
-    <header class="bg-edu-guinda text-white shadow-md relative overflow-hidden">
+    <!-- Encabezado Principal / Hero Banner -->
+    <header class="bg-primary text-white shadow-md relative overflow-hidden">
         <div class="absolute top-0 right-0 w-40 h-40 bg-edu-oro opacity-10 rounded-full transform translate-x-12 -translate-y-12"></div>
+        
         <div class="container mx-auto px-6 max-w-screen-2xl py-12 flex flex-col md:flex-row items-center justify-between gap-8">
             <div class="text-center md:text-left">
                 <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
-                    <span class="bg-edu-oro text-white text-[11px] font-bold px-2.5 py-1 rounded uppercase tracking-wider">Ecosistema Abierto</span>
-                    <span class="text-slate-300 text-sm">| Soluciones Prácticas 2026</span>
+                    <span class="bg-accent text-white text-[11px] font-bold px-2.5 py-1 rounded uppercase tracking-wider">Ecosistema Abierto</span>
+                    <span class="text-slate-100 text-sm">| Soluciones Prácticas</span>
                 </div>
                 <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Simplificando la docencia, liberando tu tiempo.</h1>
-                <p class="text-edu-oroLight mt-2 text-base font-light max-w-2xl">
+                <p class="text-slate-100 mt-2 text-base font-light max-w-2xl">
                     Plataforma tecnológica integral con herramientas locales de análisis, evaluación y recursos formativos libres. Sin registros y sin almacenar tu información privada.
                 </p>
             </div>
+            
+            <!-- Perfil del Desarrollador -->
             <div class="flex items-center gap-4 bg-black/20 p-4 rounded-xl backdrop-blur-sm border border-white/10 w-full md:w-auto">
                 <div class="bg-edu-oro/10 border border-edu-oro text-edu-oro w-14 h-14 rounded-full flex items-center justify-center text-2xl shrink-0">
-                    <img src="../julianprofile.png" alt="Perfil de Julian Sadak Vergara Cruz" class="w-full h-full object-cover rounded-full">
+                    <img src="/julianprofile.png" alt="Perfil de Julian Sadak Vergara Cruz" class="w-full h-full object-cover rounded-full">
                 </div>
                 <div>
                     <h4 class="font-bold text-md text-white">Mtro. Julian Sadak Vergara Cruz</h4>
@@ -350,15 +398,15 @@
     </main>
 
     <!-- Pie de Página -->
-    <footer class="bg-edu-guinda rounded-t-2xl text-slate-200 border-t border-slate-800 text-xs py-8">
+    <footer class="bg-primary rounded-t-2xl text-slate-200 border-t border-slate-800 text-xs py-8">
         <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="text-center md:text-left max-w-lg">
                 <p class="font-bold text-slate-100 text-sm mb-1">Licencia Abierta: Creative Commons Zero v1.0 Universal</p>
-                <p class="text-edu-oroLight leading-relaxed">Eres libre de copiar, modificar, distribuir y ejecutar este software y sus plantillas, incluso con fines comerciales, sin necesidad de solicitar permiso ni dar atribuciones. Creemos en una educación libre y sin candados.</p>
+                <p class="text-accentLight leading-relaxed">Eres libre de copiar, modificar, distribuir y ejecutar este software y sus plantillas, incluso con fines comerciales, sin necesidad de solicitar permiso ni dar atribuciones. Creemos en una educación libre y sin candados.</p>
             </div>
-            <div class="flex flex-col items-center gap-1 text-edu-oroLight font-mono text-center"> 
-            <span class="text-slate-300">Desarrollado por Julian Sadak Vergara Cruz</span> 
-            <a href="https://github.com/juliansadak/docencia" target="_blank" rel="noopener noreferrer" class="hover:text-white underline decoration-edu-oro underline-offset-4"> 
+            <div class="flex flex-col items-center gap-1 text-accentLight font-mono text-center"> 
+            <span class="text-slate-100">Desarrollado por Julian Sadak Vergara Cruz</span> 
+            <a href="https://github.com/juliansadak/docencia" target="_blank" rel="noopener noreferrer" class="hover:text-white underline decoration-accentLight underline-offset-4"> 
                 github.com/juliansadak/docencia 
             </a> 
             </div>
@@ -489,7 +537,7 @@
                 }
             }
 
-            let html = `<thead class="block md:table-header-group"><tr class="flex flex-col md:table-row bg-slate-100 text-edu-guinda border-b-2 border-slate-200 p-2 md:p-0 gap-2 mb-4 md:mb-0">`;
+            let html = `<thead class="block md:table-header-group"><tr class="flex flex-col md:table-row bg-slate-100 text-slate-100 border-b-2 border-slate-200 p-2 md:p-0 gap-2 mb-4 md:mb-0">`;
             html += `<th class="block md:table-cell p-3 font-bold text-xs uppercase tracking-wider w-full md:w-1/4 text-left">Categoría / Criterio</th>`;
             
             for(let j = 1; j <= config.levelsCount; j++) {
@@ -517,7 +565,7 @@
                 for(let j = 1; j <= config.levelsCount; j++) {
                     let valCell = cache[`cell-${i}-${j}`] || "";
                     html += `<td class="block md:table-cell p-1 md:p-2">
-                        <textarea id="cell-desc-${i}-${j}" rows="2" placeholder="Descripción..." class="w-full border rounded p-2 text-xs focus:border-guinda text-slate-600 custom-scrollbar resize-y">${valCell}</textarea>
+                        <textarea id="cell-desc-${i}-${j}" rows="2" placeholder="Descripción..." class="w-full border rounded p-2 text-xs focus:border-guinda text-slate-200 custom-scrollbar resize-y">${valCell}</textarea>
                     </td>`;
                 }
                 html += `</tr>`;
@@ -882,6 +930,28 @@
             URL.revokeObjectURL(blobUrl);
         }
     </script>
+<script>
+    function toggleDarkMode() {
+        var isDark = !document.documentElement.classList.contains('dark');
+        document.documentElement.classList.toggle('dark', isDark);
+        ['dark-mode-icon', 'dark-mode-icon-mobile'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) el.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        });
+        var label = document.getElementById('dark-mode-label');
+        if (label) label.textContent = isDark ? 'Modo Claro' : 'Modo Oscuro';
+        localStorage.setItem('edulibre-dark-mode', isDark ? '1' : '0');
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        var isDark = document.documentElement.classList.contains('dark');
+        ['dark-mode-icon', 'dark-mode-icon-mobile'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) el.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        });
+        var label = document.getElementById('dark-mode-label');
+        if (label) label.textContent = isDark ? 'Modo Claro' : 'Modo Oscuro';
+    });
+</script>
 <script src="../pwa.js"></script>
 </body>
 </html>
